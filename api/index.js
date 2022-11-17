@@ -12,9 +12,9 @@ apiRouter.use('/users',usersRouter)
 const productsRouter = require('./products')
 apiRouter.use('/products',productsRouter)
 const reviewsRouter = require('./reviews')
-// apiRouter.use('/reviews',reviewsRouter)
-// const addressRouter = require('./address')
-// apiRouter.use('/address',addressRouter );
+apiRouter.use('/reviews',reviewsRouter)
+const addressRouter = require('./address')
+apiRouter.use('/address',addressRouter );
 // const cartRouter = require('./cart');
 // apiRouter.use('/cart',cartRouter);
 
