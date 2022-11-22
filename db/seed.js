@@ -1,5 +1,5 @@
 const{client} = require('./index');
-const{createUser} = require('./users');
+const{createUser, getAllUsers} = require('./users');
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
@@ -88,6 +88,7 @@ async function rebuildDB(){
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await getAllUsers();
     client.end();
 }
 
