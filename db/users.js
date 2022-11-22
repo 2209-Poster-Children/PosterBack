@@ -21,7 +21,18 @@ async function createUser({
         console.log(error);
     }
 }
+// Either delete or do not acces func after testing
+ async function getAllUsers(){
+        console.log("getting all users loser");
+    try{
+        const {rows} =await client.query(`
+        SELECT * FROM users;
+        `)
+        console.log(rows);
+        return rows
+    }catch(error){
+        console.log(error);
+    }
+};
 
-module.exports={
-    createUser
-}
+module.exports={ createUser,getAllUsers}
