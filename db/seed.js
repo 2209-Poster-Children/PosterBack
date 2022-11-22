@@ -1,4 +1,5 @@
 const{client} = require('./index');
+const{createUser} = require('./users');
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
@@ -43,7 +44,7 @@ async function createTables(){
             "productId" INTEGER REFERENCES products(id),
             title VARCHAR(255)UNIQUE NOT NULL,
             description TEXT NOT NULL
-        )`)
+        );`)
 
         console.log("...┏━┓┏━┓┏━┓ ︵ /(^.^/) tables successfully created!")
     }catch(error){
@@ -55,11 +56,11 @@ async function dropTables(){
     console.log("(┛◉Д◉)┛彡┻━┻ dropping all tables...")
     try{
         await client.query(`
+        DROP TABLE IF EXISTS "cartDetails";
         DROP TABLE IF EXISTS reviews;
-        DROP TABLE IF EXISTS cartDetails;
         DROP TABLE IF EXISTS cart;
-        DROP TABLE IF EXISTS address;
         DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS address;
         DROP TABLE IF EXISTS users;
         `)
         console.log("...┻━┻︵ \(°□°)/ ︵ ┻━┻ all tables dropped!")
@@ -68,10 +69,25 @@ async function dropTables(){
     }
 }
 
+async function createInitialUsers(){
+    try{
+        console.log("≋≋≋≋≋̯̫⌧̯̫(ˆ•̮ ̮•ˆ)creating initial users...")
+        const shakira = await createUser({username:'shakiraHips',password:'beyonce' })
+        const cantinflas = await createUser({username:'cantinflas', password:'soGo0d'})
+        const ke$ha = await createUser({username:'ke$ha',password:'thepartydontStart'})
+        console.log(shakira,cantinflas,ke$ha);
+        console.log("success creating users!")
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
 async function rebuildDB(){
     client.connect();
     await dropTables();
     await createTables();
+    await createInitialUsers();
     client.end();
 }
 
