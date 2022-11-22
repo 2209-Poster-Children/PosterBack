@@ -26,7 +26,7 @@ async function createUser({
         RETURNING*;
         `,[username, password]);
         console.log(user , "has been created");
-        return user;
+        return {username: user.username, id: user.id};
         
     } catch(error){
         console.log(error);
@@ -66,10 +66,10 @@ async function getUser(
         SELECT * FROM users 
         WHERE username =$1;
         `,[username])
-        const theSame = await bcrypt.compare(password,user.password)
-       
-        if(user.username == username && theSame ) return {name:user.username,id:user.id}
-        else{return "user and or password incorrect!"};
+        const passwordsMatch = await bcrypt.compare(password,user.password)
+
+        if ( passwordsMatch ) return {name:user.username, id:user.id}
+        else return;
     } catch(error){
         console.log(error);
         // next({name: message: })
