@@ -173,19 +173,6 @@ async function createInitialCart(){
         const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
         const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
         const madi =await createCart({userId:5,isActive:true,totalPrice:0});
-<<<<<<< HEAD
-        const jennaA=await createCart({userId:6,isActive:true,totalPrice:0});
-        const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
-        const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
-        const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
-        const katyP = await createCart({ userId:10,isActive:true,totalPrice:0})
-        const donkayyy = await createCart({userId:11, isActive:true,totalPrice:0})
-        const madonna = await createCart({userId:12, isActive:true,totalPrice:0})
-        const gwenS =await createCart({userId:13,isActive:true,totalPrice:0})
-        const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
-        const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
-        const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
-=======
         const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
         // const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
         // const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
@@ -197,7 +184,6 @@ async function createInitialCart(){
         // const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
         // const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
         // const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
->>>>>>> 837f3f6a1687fe56f31cba140dcaa0191a19f71b
 
     } catch(error){
         console.log(error);
