@@ -44,7 +44,12 @@ async function createTables(){
             "productId" INTEGER REFERENCES products(id),
             title VARCHAR(255)UNIQUE NOT NULL,
             description TEXT NOT NULL
-        );`)
+        );
+        CREATE TABLE catagories(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(200) UNIQUE NOT NULL,
+            "productId" INTEGER REFERENCES products(id),
+        )`)
 
         console.log("...┏━┓┏━┓┏━┓ ︵ /(^.^/) tables successfully created!")
     }catch(error){
@@ -56,6 +61,7 @@ async function dropTables(){
     console.log("(┛◉Д◉)┛彡┻━┻ dropping all tables...")
     try{
         await client.query(`
+        DROP TABLE IF EXISTS catagories;
         DROP TABLE IF EXISTS "cartDetails";
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS cart;
