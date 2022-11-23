@@ -1,5 +1,5 @@
 const express=require('express')
-const {getAllUsers, createUser, getUser}=require ('../db/users')
+const {getAllUsers, createUser, getUser, getUserByUsername}=require ('../db/users')
 const usersRouter=express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} =process.env;
@@ -56,5 +56,23 @@ usersRouter.post('/register', async (req,res,next)=>{
     console.log(error);
   }
 })
+
+
+usersRouter.get('/me', async (req, res, next) => {
+  try {
+    if (!req.user){
+        next({
+            name: "InvalidCredentialsError",
+            message:"Not logged in"
+        })
+    } else {
+        const user = await getUserByUsername(req.user.username);
+        res.send({ user });
+    }
+  } catch ({name,message}){
+    next({name,message})
+  }
+});
+
 
 module.exports = usersRouter;

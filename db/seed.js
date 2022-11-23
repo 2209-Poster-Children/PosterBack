@@ -1,7 +1,7 @@
 const{client} = require('./index');
 const{createUser, getAllUsers} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
-const { createAddress } = require('./addresses');
+const { createAddress } = require('./address');
 const { createCart } = require('./cart');
 const { createReview } = require('./reviews');
 
