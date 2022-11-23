@@ -1,6 +1,6 @@
 const pg = require('pg');
 
-const client = new pg.Client(`postgres://localhost:5432/poster-children`);
+const client = new pg.Client(process.env.DB_URL||`postgres://localhost:5432/poster-children`);
 
 module.exports = {
     client

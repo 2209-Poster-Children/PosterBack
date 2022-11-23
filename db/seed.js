@@ -1,6 +1,8 @@
 const{client} = require('./index');
 const{createUser, getAllUsers} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
+const { createAddress } = require('./addresses');
+const { createCart } = require('./cart');
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
@@ -104,14 +106,41 @@ async function createInitialProducts(){
     }
 }
 
+async function createInitialAddress(){
+    try{
+        console.log("creating initial addresses")
+        const newYork = await createAddress({address:"1681 Broadway",zipcode:10019,state:"NY",city:"New York",userId:1})
+        const quinta = await createAddress({address:"600 Sunset Dr",zipcode:78503,state:"TX",city:"McAllen",userId:2})
+        const miami = await createAddress({address:"3140 North Bay Road",zipcode:33140,state:"FL",city:"Miami Beach",userId:3});
+        console.log()
+    } catch(error){
+        console.log(error)
+    }
+}
+    
+async function createInitialCart(){
+    console.log("creating initial cart...")
+    try{
+        const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:40.01})
+        const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:40})
+        const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:60})
+    } catch(error){
+        console.log(error);
+    }
+}
+
+
+
+
+
 async function testDB(){
 
         console.log("testing the database")
-        await getAllUsers();
-        await getProductById(1);
-        await getAllProducts();
-        await getProductByTitle('Scott Pilgrim');
-    
+        // await getAllUsers();
+        // await getProductById(1);
+        // await getAllProducts();
+        // await getProductByTitle('Scott Pilgrim');
+        
 }
 
 async function rebuildDB(){
@@ -120,7 +149,8 @@ async function rebuildDB(){
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    
+    await createInitialAddress();
+    await createInitialCart();
     await testDB()
     client.end();
 }
