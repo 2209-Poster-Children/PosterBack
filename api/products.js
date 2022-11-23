@@ -8,6 +8,7 @@ productsRouter.get('/',async (req,res,next)=>{
         const allProducts = await getAllProducts()
         
         res.send(allProducts);
+        
     }catch(error){
         console.log(error)
     }
