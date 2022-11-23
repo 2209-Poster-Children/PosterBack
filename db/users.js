@@ -58,6 +58,23 @@ async function getUserByUsername(
     }
 }
 
+async function getUserById(
+    id
+){
+    console.log("calling getUserByID...")
+    try{
+        if (!id){
+            return null
+        }
+        const { rows: [ user ] } = await client.query(`
+            SELECT * FROM users WHERE id=${id}
+            `);
+        return user;
+    } catch(error){
+        console.log("error with get user by id");
+    }
+}
+
 // Either delete or do not acces func after testing
  async function getAllUsers(){
         console.log("getting all users");
