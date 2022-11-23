@@ -3,6 +3,7 @@ const{createUser, getAllUsers} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./addresses');
 const { createCart } = require('./cart');
+const { createReview } = require('./reviews');
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
@@ -19,7 +20,8 @@ async function createTables(){
             title VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
             price NUMERIC,
-            quantity INTEGER
+            quantity INTEGER,
+            "imageUrl" VARCHAR(255) default 'https://http.cat/404'
         );
         CREATE TABLE address(
             id SERIAL PRIMARY KEY,
@@ -112,7 +114,7 @@ async function createInitialAddress(){
         const newYork = await createAddress({address:"1681 Broadway",zipcode:10019,state:"NY",city:"New York",userId:1})
         const quinta = await createAddress({address:"600 Sunset Dr",zipcode:78503,state:"TX",city:"McAllen",userId:2})
         const miami = await createAddress({address:"3140 North Bay Road",zipcode:33140,state:"FL",city:"Miami Beach",userId:3});
-        console.log()
+        console.log("address created")
     } catch(error){
         console.log(error)
     }
@@ -129,9 +131,16 @@ async function createInitialCart(){
     }
 }
 
-
-
-
+async function createInitialReviews(){
+    console.log("creating initial reviews...")
+    try{
+        const itCameInRipped = await createReview({userId:1,productId:2,title:"It came in ripped",description:"My poster must've been delivered by a crazy dude, because it came in the mail ripped, but the company was willing to replace it for free! Thanks poster-children!"})
+        const highQuality = await createReview({userId:2,productId:3,title:"Very Shiny high quality",description:"My poster was glittering and bright! I love it!"})
+        const cheapAndGood = await createReview({userId:3,productId:1,title:"Hung it up right away..!", description:"I had to go buy a poster frame for this amazing poster right away and hung it up in my living room!" })
+    }catch(error){
+        console.log(error);
+    }
+}
 
 async function testDB(){
 
@@ -151,7 +160,8 @@ async function rebuildDB(){
     await createInitialProducts();
     await createInitialAddress();
     await createInitialCart();
-    await testDB()
+    await createInitialReviews();
+    await testDB();
     client.end();
 }
 
