@@ -19,32 +19,53 @@ async function createCart({
 }
 
 //all carts, open and closed(maybe I should just make a closed instead of a dual one)
-async function getCartsByUserId(userId){
-  // console.log("getting carts by user id" , userId)
-  try{
-    const{rows} =await client.query(`
-    SELECT * FROM cart
-    WHERE "userId" =$1;`
-    ,[userId]);
-    // console.log(rows)
-    return rows
-  }catch(error){
-    console.log(error)
-  }
-}
+// async function getCartsByUserId(userId){
+//   // console.log("getting carts by user id" , userId)
+//   try{
+//     const{rows} =await client.query(`
+//     SELECT * FROM cart
+//     WHERE "userId" =$1;`
+//     ,[userId]);
+//     // console.log(rows)
+//     return rows
+//   }catch(error){
+//     console.log(error)
+//   }
+// }
 
 //users should only have 1 active cart, am going to write code that guaruntees that... currently this gets the carts active by user
 async function getActiveCartByUserId(userId){
   // console.log("getting Active cart by user id" , userId)
   try{
-    const{rows: [cart]} =await client.query(`
-    SELECT * FROM cart
-    WHERE  "isActive" = true AND "userId" =$1;`
-    ,[userId]);
-    // console.log(cart);
-    return cart
+    const {rows: [cart]} = await client.query(`
+    SELECT cart.id AS "cartId", 
+    cart."totalPrice",
+    CASE WHEN "cartDetails"."cartId" IS NULL THEN '[]'::json
+    ELSE
+    JSON_AGG(
+        JSON_BUILD_OBJECT(
+            'productId', products.id,
+            'title', products.title,
+            'price', products.price,
+            'quantity', "cartDetails".quantity,
+            'imageUrl', products."imageUrl",
+            'imageAlt', products."imageAlt",
+            'subtotal', "cartDetails".subtotal
+        )
+    ) END AS products
+    FROM cart
+    LEFT JOIN "cartDetails" 
+        ON cart.id = "cartDetails"."cartId"
+    LEFT JOIN "products"
+        ON products.id = "cartDetails"."productId"
+    WHERE cart."userId" = $1 AND cart."isActive" = true
+    GROUP BY cart.id, "cartDetails"."cartId";
+    `,[userId])
+    console.log(cart);
+    return cart;
+    
   }catch(error){
-    console.log(error)
+      console.log(error)
   }
 }
 
@@ -111,7 +132,7 @@ async function deleteCart(id){
 module.exports={
     createCart,
     deleteCart,
-    getCartsByUserId,
+    // getCartsByUserId,
     getActiveCartByUserId,
     obliterateAllCartDetails,
     totalPricer

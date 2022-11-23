@@ -1,9 +1,10 @@
 const {client}= require ('.')
 const { totalPricer } = require('./cart')
-const {getProductPrice}=require('./products')
+const { getProductPrice }=require('./products')
 
-//this is where all my code gets more complex, feel free to message me for help if you're trying to change it
-// but I'm putting notes everywhere now.
+// This is where all my code gets more complex, feel free to message me for help if you're trying to change it
+// but I'm putting notes everywhere now. // I need to add a quantity if statement based on items already in the cart.
+// Otherwise we're infinitely looping.
 async function addItemToCartDetails({cartId,productId,quantity}){
     try{// assigning subtotal from price and quantity put in
         const {price} = await getProductPrice(productId)
@@ -16,13 +17,50 @@ async function addItemToCartDetails({cartId,productId,quantity}){
             RETURNING *;
             `, [cartId,productId,quantity,subtotal])
         // console.log(cartDetails)
-        //set totalPrice on Cart
+        // set totalPrice on Cart
         const newPrice = await totalPricer(cartId);
         return cartDetails
     }catch(error){
         console.log(error)
     }
 }
+
+// grab all carts 
+async function getAllCartsUserId(userId){
+    //talk to the team about the omega join query
+    try{
+        const {rows} = await client.query(`
+        SELECT cart.id AS "cartId", 
+        cart."totalPrice",
+        CASE WHEN "cartDetails"."cartId" IS NULL THEN '[]'::json
+        ELSE
+        JSON_AGG(
+            JSON_BUILD_OBJECT(
+                'productId', products.id,
+                'title', products.title,
+                'price', products.price,
+                'quantity', "cartDetails".quantity,
+                'imageUrl', products."imageUrl",
+                'imageAlt', products."imageAlt",
+                'subtotal', "cartDetails".subtotal
+            )
+        ) END AS products
+        FROM cart
+        LEFT JOIN "cartDetails" 
+            ON cart.id = "cartDetails"."cartId"
+        LEFT JOIN "products"
+            ON products.id = "cartDetails"."productId"
+        WHERE cart."userId" = $1 AND cart."isActive" = false
+        GROUP BY cart.id, "cartDetails"."cartId";
+        `,[cartId])
+        // console.log(rows);
+        return rows;
+        
+    }catch(error){
+        console.log(error)
+    }
+}
+
 
 async function removeItemFromCartDetails(productId,cartId){
     try{ //this should remove just 1 item from cart details 
@@ -99,5 +137,6 @@ module.exports= {
     addItemToCartDetails, 
     getCartDetailsByCart,
     removeItemFromCartDetails,
-    addQuantityToCart
+    addQuantityToCart,
+    getAllCartsUserId
 }
