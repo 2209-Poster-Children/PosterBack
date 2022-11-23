@@ -44,6 +44,7 @@ async function getAllProducts(){
         console.log(error);
     }
 }
+
 async function getProductByTitle(title){
     console.log("getting tables by title "+title)
     try{
@@ -58,9 +59,24 @@ async function getProductByTitle(title){
     }
 }
 
+async function deleteProduct(id){
+    try {
+      await client.query(`
+        DELETE FROM products
+        WHERE id=$1
+        RETURNING *;
+        `, [id]);
+  
+        return id, "product has been removed";
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 module.exports={
     createProduct,
     getProductById,
     getAllProducts,
-    getProductByTitle
+    getProductByTitle,
+    deleteProduct
 }
