@@ -72,4 +72,5 @@ async function getUserByUsername(
     }
 };
 
-module.exports={ createUser,getAllUsers, getUser}
+module.exports={ createUser,getAllUsers,
+    getUser, getUserByUsername}

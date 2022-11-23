@@ -1,6 +1,9 @@
 const{client} = require('./index');
 const{createUser, getAllUsers} = require('./users');
-const{createProduct} = require('./products');
+const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
+const { createAddress } = require('./addresses');
+const { createCart } = require('./cart');
+const { createReview } = require('./reviews');
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
@@ -17,7 +20,8 @@ async function createTables(){
             title VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
             price NUMERIC,
-            quantity INTEGER
+            quantity INTEGER,
+            "imageUrl" VARCHAR(255) default 'https://http.cat/404'
         );
         CREATE TABLE address(
             id SERIAL PRIMARY KEY,
@@ -93,23 +97,59 @@ async function createInitialUsers(){
 async function createInitialProducts(){
     try{
         console.log('creating initial products');
-        const scottPigrim = await createProduct({title:"Scott Pilgrim",description:"Why is he dressed like a pirate?",price:20.00,quantity:300})
+        const scottPilgrim = await createProduct({title:"Scott Pilgrim",description:"Why is he dressed like a pirate?",price:20.00,quantity:300})
         const akira = await createProduct({title:"Akira",description:"Two boys get psykinesis and then a baby explodes",price:20.00, quantity:1000})
         const jackieBrown = await createProduct({title:"Jackie Brown", description:"A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin",price:20.00, quantity:1234})
         const theOutsiders = await createProduct({title:"The Outsiders", description:"Tom Cruise in his first role", price:50.00, quantity:10});
-
-
+        console.log(scottPilgrim,akira, jackieBrown,theOutsiders )
 
     } catch(error){
         console.log(error);
     }
 }
 
+async function createInitialAddress(){
+    try{
+        console.log("creating initial addresses")
+        const newYork = await createAddress({address:"1681 Broadway",zipcode:10019,state:"NY",city:"New York",userId:1})
+        const quinta = await createAddress({address:"600 Sunset Dr",zipcode:78503,state:"TX",city:"McAllen",userId:2})
+        const miami = await createAddress({address:"3140 North Bay Road",zipcode:33140,state:"FL",city:"Miami Beach",userId:3});
+        console.log("address created")
+    } catch(error){
+        console.log(error)
+    }
+}
+    
+async function createInitialCart(){
+    console.log("creating initial cart...")
+    try{
+        const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:40.01})
+        const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:40})
+        const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:60})
+    } catch(error){
+        console.log(error);
+    }
+}
+
+async function createInitialReviews(){
+    console.log("creating initial reviews...")
+    try{
+        const itCameInRipped = await createReview({userId:1,productId:2,title:"It came in ripped",description:"My poster must've been delivered by a crazy dude, because it came in the mail ripped, but the company was willing to replace it for free! Thanks poster-children!"})
+        const highQuality = await createReview({userId:2,productId:3,title:"Very Shiny high quality",description:"My poster was glittering and bright! I love it!"})
+        const cheapAndGood = await createReview({userId:3,productId:1,title:"Hung it up right away..!", description:"I had to go buy a poster frame for this amazing poster right away and hung it up in my living room!" })
+    }catch(error){
+        console.log(error);
+    }
+}
+
 async function testDB(){
-    
+
         console.log("testing the database")
-        await getAllUsers();
-    
+        // await getAllUsers();
+        // await getProductById(1);
+        // await getAllProducts();
+        // await getProductByTitle('Scott Pilgrim');
+        
 }
 
 async function rebuildDB(){
@@ -118,8 +158,10 @@ async function rebuildDB(){
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    
-    await testDB()
+    await createInitialAddress();
+    await createInitialCart();
+    await createInitialReviews();
+    await testDB();
     client.end();
 }
 
