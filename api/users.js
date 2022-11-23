@@ -62,7 +62,6 @@ usersRouter.post('/register', async (req,res,next)=>{
 
 usersRouter.get('/me',requireUser, async(req, res, next) => {
   try {
-
       const user = await getUserByUsername(req.user.username);
       res.send({ user });
 

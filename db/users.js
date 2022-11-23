@@ -41,17 +41,16 @@ async function getUser(
 }
 
 async function getUserByUsername(
-    username, password 
+    username
 ){
     console.log("getting user...")
     try{
         const { rows: [ user ] } = await client.query(`
-        SELECT * FROM users
+        SELECT username, id FROM users
         WHERE username = $1;
         `,[username]);
-        if(password != user.password) return "wrong password, try again Shakira."
         console.log("user " , user)
-        return {user: { id,username } };
+        return user;
     } catch(error){
         console.log("there was an error getting the user...")
         throw error;
