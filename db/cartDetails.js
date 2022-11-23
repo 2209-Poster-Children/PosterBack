@@ -14,6 +14,7 @@ async function addItemToCartDetails({cartId,productId,quantity}){
         const {rows:[cartDetails]}=await client.query(`
             INSERT INTO "cartDetails"("cartId","productId",quantity,subtotal)
             VALUES ($1,$2,$3,$4)
+            ON CONFLICT ("cartId","productId") DO NOTHING
             RETURNING *;
             `, [cartId,productId,quantity,subtotal])
         // console.log(cartDetails)
@@ -52,7 +53,7 @@ async function getAllCartsUserId(userId){
             ON products.id = "cartDetails"."productId"
         WHERE cart."userId" = $1 AND cart."isActive" = false
         GROUP BY cart.id, "cartDetails"."cartId";
-        `,[cartId])
+        `,[userId])
         // console.log(rows);
         return rows;
         
@@ -125,6 +126,7 @@ async function addQuantityToCart(cartId, productId, quantity){
             `,[quantity,subtotal,productId,cartId])
         //set totalPrice on cart
         const newPrice = totalPricer(cartId);
+        console.log(rows);
         return rows
     }catch(error){
         console.log(error);

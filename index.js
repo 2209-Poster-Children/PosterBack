@@ -3,7 +3,8 @@ require ('dotenv').config()
 const morgan=require ('morgan');
 const cors = require("cors")
 const app= express();
-app.use(cors())
+const corsOptions = {allowedHeaders: ["Content-Type","Authorization"]}
+app.use(cors(corsOptions));
 app.use(express.urlencoded ({extended:false}));
 app.use(morgan('dev'));
 app.use(express.json());

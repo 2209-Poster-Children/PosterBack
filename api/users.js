@@ -106,10 +106,9 @@ usersRouter.get('/me',requireUser, async(req, res, next) => {
       // console.log(req.user)
       const user = await getUserByUsername(req.user.username);
       const addresses = await getAllAddressByUserId(user.id);
-      const activeCart = await getActiveCartByUserId(user.id);
       const allCarts = await getAllCartsUserId(user.id);
       const reviews = await getAllReviewsById(user.id);
-      res.send({ user, addresses, activeCart, allCarts, reviews });
+      res.send({ user, addresses, allCarts, reviews });
 
     } catch ( { name, message } ) {
       next({ name, message })
