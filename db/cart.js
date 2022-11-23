@@ -17,6 +17,21 @@ async function createCart({
     }
 }
 
+async function deleteCart(id){
+    try {
+      await client.query(`
+        DELETE FROM carts
+        WHERE id=$1
+        RETURNING *;
+        `, [id]);
+  
+        return id, "cart has been emptied";
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 module.exports={
-    createCart
+    createCart,
+    deleteCart
 }

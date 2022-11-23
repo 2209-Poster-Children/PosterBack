@@ -18,7 +18,22 @@ async function createReview({
     }
 }
 
+async function deleteReview(id){
+  try {
+    await client.query(`
+      DELETE FROM reviews
+      WHERE id=$1
+      RETURNING *;
+      `, [id]);
+
+      return id, "review has been DESTROYED!";
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports={
-    createReview
+    createReview,
+    deleteReview
 }
 
