@@ -1,5 +1,5 @@
 const { client } = require(".")
-
+// update product
 async function createProduct({
     title, description, price, quantity
 }){
