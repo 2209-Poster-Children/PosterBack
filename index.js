@@ -1,14 +1,17 @@
 const express = require ('express')
 require ('dotenv').config()
 const morgan=require ('morgan');
-
+const cors = require("cors")
 const app= express();
+app.use(cors())
 app.use(express.urlencoded ({extended:false}));
 app.use(morgan('dev'));
 app.use(express.json());
 
+
 const apiRouter=require ('./api')
 app.use ('/api',apiRouter)
+
 
 const {client}=require('./db')
 
