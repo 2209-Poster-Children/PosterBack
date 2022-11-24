@@ -87,6 +87,7 @@ async function createInitialUsers(){
         const shakira = await createUser({username:'shakiraHips',password:'beyonce' })
         const cantinflas = await createUser({username:'cantinflas', password:'soGo0d'})
         const ke$ha = await createUser({username:'ke$ha',password:'thepartydontStart'})
+
         console.log(shakira,cantinflas,ke$ha);
         console.log("success creating users!")
     }catch(error){
@@ -100,8 +101,25 @@ async function createInitialProducts(){
         const scottPilgrim = await createProduct({title:"Scott Pilgrim",description:"Why is he dressed like a pirate?",price:20.00,quantity:300})
         const akira = await createProduct({title:"Akira",description:"Two boys get psykinesis and then a baby explodes",price:20.00, quantity:1000})
         const jackieBrown = await createProduct({title:"Jackie Brown", description:"A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin",price:20.00, quantity:1234})
-        const theOutsiders = await createProduct({title:"The Outsiders", description:"Tom Cruise in his first role", price:50.00, quantity:10});
-        console.log(scottPilgrim,akira, jackieBrown,theOutsiders )
+        const theOutsiders = await createProduct({title:"The Outsiders", description:"Tom Cruise in his first role", price:50.00, quantity:10, imgURL:"https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg"});
+        const theSilenceOfLambs = await createProduct({ title:"The Silence of The Lambs",description:"disturbing Old Man eats people ",price:"A finger", quantity:10,imgURL:"https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg"})
+        const alienET = await createProduct({ title:"E.T",description:" EEEEE.TTTTTT ",price:20.00,quantity:10, imgURL:"https://i.pinimg.com/474x/f6/23/07/f623079bcc02b49ab9a839b239c81b9d.jpg" })
+        const westSideStory = await createProduct({ title:"West Side Story", description:"A rivalry between ethnic backgrounds *Eyeroll* ", price:10.00,quantity:10, imgURL:"https://i.pinimg.com/564x/83/b2/a0/83b2a0298f4a5c18278aefa9a440ae43.jpg"})
+        const littleWomen = await createProduct({ title:"Little Women",description:"4 sisters",price:25.00,quantity:20, imgURL:"https://i.pinimg.com/564x/a1/ae/90/a1ae90417b7e8a037ad20b16392ce17e.jpg"})
+        const ladyOnFire = await createProduct({ title: "Portrait of a Lady On Fire", description:" ouch",price:20.00,quantity:10, imgURL: "https://cdn.shopify.com/s/files/1/0275/8351/2681/products/PLF_AkikoPoster_2000x@2x.progressive.jpg?v=1654199751"})
+        const blackSwan =await createProduct({title:"Black Swan",description:"A confusing movie don't watch when a toddler", price:20.00,quantity:10,imgURL:"https://i.pinimg.com/564x/ce/0c/ff/ce0cff6131d1c7946aa514f7b6748fa2.jpg" })
+        const hereditary =await createProduct({ title:"Hereditary",description:"A WTF kind of movie", price:15.00, quantity:10, imgURL:"https://i.pinimg.com/564x/89/a6/e0/89a6e080474623cf3bfce05163fac57b.jpg"})
+        const midSommar =await createProduct({ title:"Midsommar",description:"Culty",price:20.00,quantity:15,imgURL:"https://i.pinimg.com/564x/bb/ab/1c/bbab1ca03a8b81457c02133c4f0a365d.jpg"})
+        const everythingEverywhere = await createProduct({ title: "Everything Everywhere All At Once", description:"crazy", price:20.00, quantity:15, imgUrl:"https://i.pinimg.com/564x/43/4d/be/434dbe2df3ad3afeccb0011659e978bf.jpg"})
+        const spiderMan = await createProduct({ title:"Spiderman Into The Spiderverse", description:" Miles Morales", price:20.00,quantity:15, imgURL:"https://i.pinimg.com/564x/c4/b0/b3/c4b0b31635fb0c935271c979f2d3bcf7.jpg"})
+        const wolfOfWalls=await createProduct({ title: "Wolf Of Wallstreet",description:"self explanatory", price:20.00,quantity:10, imgURL:"https://i.pinimg.com/564x/27/d5/db/27d5db11ab103f957a14949b64d09cfb.jpg"})
+        const barbarian =await createProduct({ title:"Barbarian", description:"Airbnb nightmare", price:25.00, quantity:15, imgURL:"https://i.pinimg.com/564x/5a/4f/68/5a4f6895951d37ff5da9832727606ea8.jpg"})
+        const bleachers =await createProduct({ title:" The Bleachers",description:"Band",price:20.00,quantity:20,imgURL:"https://i.pinimg.com/564x/04/a0/9c/04a09c7b371408dfb0d617f7a97110cf.jpg"})
+        const arcticMonkeys=await createProduct({title:"Arctic Monkey",description:"Band", price:20.00,quantity:12, imgURL:"https://i.pinimg.com/564x/22/61/59/226159347177904e4de8779f3c097b7b.jpg"})
+        const szaa=await createProduct({title:"sza", description:"Artist",price:25.00, quantity:10, imgUrl:"https://i.pinimg.com/474x/18/fd/2c/18fd2c38f5cf7d4e124a7c7792e99c41.jpg "})
+        const theWeeknd =await createProduct({title:"The Weeknd", description:"sad- mf",price:25.00,quantity:23, imgURL:"https://i.pinimg.com/564x/bf/62/bb/bf62bb91015676488c5adda1251d997d.jpg" })
+        
+        console.log(scottPilgrim,akira, jackieBrown,theOutsiders,theSilenceOfLambs,alienET,westSideStory,littleWomen,ladyOnFire,blackSwan)
 
     } catch(error){
         console.log(error);
