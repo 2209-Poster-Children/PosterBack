@@ -62,13 +62,17 @@ usersRouter.post('/register', async (req,res,next)=>{
 
 usersRouter.get('/me',requireUser, async(req, res, next) => {
   try {
+      console.log(req.user)
       const user = await getUserByUsername(req.user.username);
+      console.log(req.user.username)
       res.send({ user });
 
   } catch ({name,message}){
     next({name,message})
   }
 });
+
+
 
 
 module.exports = usersRouter;

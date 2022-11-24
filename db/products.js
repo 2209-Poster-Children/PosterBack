@@ -1,16 +1,16 @@
 const { client } = require(".")
 // update product
 async function createProduct({
-    title, description, price, quantity
+    title, description, price, quantity,imageUrl
 }){
     console.log("lets creating product ");
     try{
     const{rows: [product]} = await client.query(`
-        INSERT INTO products(title, description, price, quantity)
-        VALUES ($1,$2,$3,$4)
+        INSERT INTO products(title, description, price, quantity, "imageUrl")
+        VALUES ($1,$2,$3,$4,$5)
         ON CONFLICT (title) DO NOTHING
         RETURNING *;
-        `,[title, description, price, quantity ]);
+        `,[title, description, price, quantity,imageUrl ]);
         console.log( product, "has been created");
         return product;
     } catch(error){
@@ -45,15 +45,15 @@ async function getAllProducts(){
     }
 }
 
-async function getProductByTitle(title){
-    console.log("getting tables by title "+title)
+async function getProductByTitle(titles){
+    console.log("getting tables by title "+titles)
     try{
-        const{rows: [titl]} = await client.query(`
+        const{rows} = await client.query(`
         SELECT * FROM products
         WHERE title = $1;`
-        ,[title])
-        console.log(titl);
-        return titl
+        ,[titles])
+        console.log(rows);
+        return rows
     } catch(error){
         console.log(error);
     }

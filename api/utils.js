@@ -1,3 +1,6 @@
+const {checkUserAdminStatus} = require('../db/users');
+
+
 function requireUser(req,res, next){
     console.log("This is req user",req.user)
     if(!req.user){
@@ -9,20 +12,23 @@ function requireUser(req,res, next){
     }
     next();
 }
-
-function requireAdmin(req,res,next){
+//unfinished
+async function requireAdmin(req,res,next){
     console.log("Test your might")
-    if(req.user.admin !== true){
+    console.log("here's my user" ,req.user);
+    const username = req.user.username
+    const admin = checkUserAdminStatus(username)
+    if(admin !== true){
         res.status()
         next({
             name: "You SHALL NOT PASS",
             message: "THIS IS NOT FOR YOU MINION"
         })
     }
-    next();
+    next()
 }
 // require admin
 
 module.exports ={
-    requireUser
+    requireUser,requireAdmin
 }
