@@ -41,20 +41,36 @@ async function getUser(
 }
 
 async function getUserByUsername(
-    username, password 
+    username
 ){
     console.log("getting user...")
     try{
         const { rows: [ user ] } = await client.query(`
-        SELECT * FROM users
+        SELECT username, id FROM users
         WHERE username = $1;
         `,[username]);
-        if(password != user.password) return "wrong password, try again Shakira."
         console.log("user " , user)
-        return {user: { id,username } };
+        return user;
     } catch(error){
         console.log("there was an error getting the user...")
         throw error;
+    }
+}
+
+async function getUserById(
+    id
+){
+    console.log("calling getUserByID...")
+    try{
+        if (!id){
+            return null
+        }
+        const { rows: [ user ] } = await client.query(`
+            SELECT * FROM users WHERE id=${id}
+            `);
+        return user;
+    } catch(error){
+        console.log("error with get user by id");
     }
 }
 
@@ -73,4 +89,4 @@ async function getUserByUsername(
 };
 
 module.exports={ createUser,getAllUsers,
-    getUser, getUserByUsername}
+    getUser, getUserByUsername, getUserById}

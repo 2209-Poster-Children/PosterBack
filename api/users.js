@@ -1,8 +1,10 @@
 const express=require('express')
-const {getAllUsers, createUser, getUser}=require ('../db/users')
+const {getAllUsers, createUser, getUser, getUserByUsername}=require ('../db/users')
+const {requireUser} = require('./utils');
 const usersRouter=express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} =process.env;
+
 
 // delete this b4 exporting the client 
 usersRouter.get('/',async(req,res,next)=>{
@@ -36,7 +38,7 @@ usersRouter.post('/login',async (req,res,next)=>{
 })
 
 
-
+// never pass admin create separate function for promoting users (never pass req.body entirely)
 usersRouter.post('/register', async (req,res,next)=>{
   //the request body values 
   const {username, password} =req.body;
@@ -54,6 +56,18 @@ usersRouter.post('/register', async (req,res,next)=>{
 
   }catch(error){
     console.log(error);
+  }
+});
+
+
+
+usersRouter.get('/me',requireUser, async(req, res, next) => {
+  try {
+      const user = await getUserByUsername(req.user.username);
+      res.send({ user });
+
+  } catch ({name,message}){
+    next({name,message})
   }
 });
 
