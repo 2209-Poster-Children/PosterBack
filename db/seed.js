@@ -7,7 +7,7 @@ const { createReview } = require('./reviews');
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
-    //notes on products genre and img link??
+    //notes on products genre(catagories) and img link??
     try{
         await client.query(`
         CREATE TABLE users(
