@@ -9,19 +9,8 @@ function requireUser(req,res, next){
     }
     next();
 }
+//unfinished
 
-function requireAdmin(req,res,next){
-    console.log("Test your might")
-    if(req.user.admin !== true){
-        res.status()
-        next({
-            name: "You SHALL NOT PASS",
-            message: "THIS IS NOT FOR YOU MINION"
-        })
-    }
-    next();
-}
-// require admin
 
 module.exports ={
     requireUser
