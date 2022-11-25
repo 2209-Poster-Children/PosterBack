@@ -57,7 +57,8 @@ usersRouter.post('/register', async (req,res,next)=>{
   }catch(error){
     console.log(error);
   }
-})
+});
+
 
 
 usersRouter.get('/me',requireUser, async(req, res, next) => {
