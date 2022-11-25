@@ -121,7 +121,7 @@ async function checkUserAdminStatus(username){
         console.log(isAdmin.isAdmin);
         if(isAdmin.isAdmin == true){ return isAdmin.isAdmin}
         
-        else{ return {name:"ACCESS DENIED",message:"YOU DO NOT HAVE THE PERMISSIONS FOR THIS API FUNCTION"}}
+        else return {name:"ACCESS DENIED",message:"YOU DO NOT HAVE THE PERMISSIONS FOR THIS API FUNCTION"}
     } catch(error){
         console.log(error)
     }
