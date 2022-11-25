@@ -30,7 +30,8 @@ async function createTables(){
             zipcode INTEGER NOT NULL,
             state VARCHAR(2) NOT NULL,
             city VARCHAR(255) NOT NULL,
-            "userId" INTEGER REFERENCES users(id) 
+            "userId" INTEGER REFERENCES users(id),
+            "primaryAddress" BOOLEAN default true
         );
         CREATE TABLE cart(
             id SERIAL PRIMARY KEY,
