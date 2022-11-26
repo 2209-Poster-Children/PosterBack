@@ -139,6 +139,7 @@ async function createInitialAddress(){
         const newYork = await createAddress({address:"1681 Broadway",zipcode:10019,state:"NY",city:"New York",userId:1})
         const quinta = await createAddress({address:"600 Sunset Dr",zipcode:78503,state:"TX",city:"McAllen",userId:2})
         const miami = await createAddress({address:"3140 North Bay Road",zipcode:33140,state:"FL",city:"Miami Beach",userId:3});
+        const drewfordAddress = await createAddress({address:"1234 Streetname", zipcode: 78501, state:"TX", city: "McAllen", userId:6});
         console.log("address created")
     } catch(error){
         console.log(error)
