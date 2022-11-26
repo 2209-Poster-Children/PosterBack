@@ -1,5 +1,27 @@
+const { query } = require("express")
 const { client } = require(".")
 const {getUserByUsername} = require('./users')
+
+async function getAllAddressByUserId(id) {
+  try {
+    if (!id) {
+      console.log('no id sent')
+      return null;
+    }
+    const { rows } = await client.query(`
+      SELECT *
+      FROM address
+      WHERE id=$1
+      RETURNING *;
+      `, [id])
+    
+    console.log(rows)
+    return rows;
+
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 async function createAddress({
   address, zipcode, state, city, userId
@@ -23,5 +45,6 @@ async function createAddress({
 
 
 module.exports={
-  createAddress
+  createAddress,
+  getAllAddressByUserId
 }
