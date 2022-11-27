@@ -1,9 +1,10 @@
 const express= require('express')
 const {getAllProducts, getProductByTitle,
     createProduct, getProductById} = require ('../db/products')
-const productsRouter = express.Router();
 const {requireUser} = require('./utils');
 const {requireAdmin} = require('./utilsadmin')
+const productsRouter = express.Router();
+
 
 productsRouter.get('/',async (req,res,next)=>{
     try{
@@ -27,6 +28,7 @@ productsRouter.post('/',requireUser, requireAdmin,async(req,res,next)=>{
         console.log(error)
     }
 })
+
 //GET products/title
 productsRouter.get('/title',async(req,res,next)=>{
     try{
