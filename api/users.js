@@ -45,6 +45,9 @@ usersRouter.post('/register', async (req,res,next)=>{
   try{
   if(!username || !password) return "no username or password values entered"
   //create new user, new token to immediately login if we wish upon register
+    if(password.length <8 ){ res.error("Password is too short")}
+    if(username.length <3 ){ res.error("Username is too short")}
+    
     const user = await createUser({ username,password})
     const token = jwt.sign(
     {id: user.id, username}, process.env.JWT_SECRET, {expiresIn: '1w'})

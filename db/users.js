@@ -1,12 +1,23 @@
 const { client } = require(".");
+const bcrypt = require('bcrypt');
+
+// create a bcrypt hasher and use it to pass password values.
+async function generateHashedValue(valueToHash){
+    try{
+        const saltValue = await bcrypt.genSalt(10);
+        const hashedValue = await bcrypt.hash(valueToHash,saltValue)
+        return hashedValue;
+    }catch(error){
+        console.log(error)
+    }
+}
 
 async function createUser({
     username,
     password
 }){
-    //password hasher? (hash that pass)
-    // saltyMeter = 7;
-    // const hashedPassword = await bcrypt.hash(password,saltyMeter)
+    password = await generateHashedValue(password)
+
     try{
         const{ rows: [ user ] } = await client.query(`
         INSERT INTO users(username, password)
@@ -27,10 +38,10 @@ async function createAdminUser({
     password,
     isAdmin
 }){
-    //password hasher? (hash that pass)
-    // saltyMeter = 7;
-    // const hashedPassword = await bcrypt.hash(password,saltyMeter)
+   
+    
     try{
+        password = await generateHashedValue(password);
         const{ rows: [ user ] } = await client.query(`
         INSERT INTO users(username, password,"isAdmin")
         VALUES ($1, $2, $3)
@@ -55,8 +66,9 @@ async function getUser(
         SELECT * FROM users 
         WHERE username =$1;
         `,[username])
-        // console.log("rows.obj ", user);
-        if(user.username == username && user.password == password ) return user
+        const theSame = await bcrypt.compare(password,user.password)
+       
+        if(user.username == username && theSame ) return {name:user.username,id:user.id}
         else{return "user and or password incorrect!"};
     } catch(error){
         console.log(error);
