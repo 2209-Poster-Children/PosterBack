@@ -68,7 +68,7 @@ async function getProductByTitle(titles){
     try{
         const{rows} = await client.query(`
         SELECT * FROM products
-        WHERE title = $1;`
+        WHERE LOWER(title) = LOWER($1);`
         ,[titles])
         console.log(rows);
         return rows
