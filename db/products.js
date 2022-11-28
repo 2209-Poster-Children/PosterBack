@@ -1,16 +1,17 @@
 const { client } = require(".")
 // update product (having issues with the product return values... talk to matt?)
 async function createProduct({
-    title, description, price, quantity,imageUrl
+    title, description, price, quantity,imageUrl,imageAlt
 }){
     if (imageUrl == null) imageUrl = 'https://http.cat/404'
+    if (imageAlt == null) imageAlt = 'This is an image of a poster'
     try{
     const {rows: [products] } = await client.query(`
-        INSERT INTO products(title, description, price,"imageUrl", quantity)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO products(title, description, price,"imageUrl", quantity,"imageAlt")
+        VALUES ($1, $2, $3, $4, $5, $6)
         ON CONFLICT (title) DO NOTHING
         RETURNING *;
-        `,[title, description, price, imageUrl, quantity ]);
+        `,[title, description, price, imageUrl, quantity,imageAlt ]);
         return products;
     } catch(error){
         console.log(error)
