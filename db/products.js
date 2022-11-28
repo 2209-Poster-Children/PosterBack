@@ -19,16 +19,21 @@ async function createProduct({
 
 async function updateProduct(
    id, fields={}
-){console.log(fields)
-     const setString= Object.keys(fields).map((key,index)=> `
-    "${key}"=$${index+1}`).join(`, `)
-    const {rows:[products]}= await client.query(`
-        UPDATE products SET ${setString}
-        WHERE id = ${id}
-        RETURNING *;`,Object.values(fields))
+){
+    try{
+        console.log(fields)
+        const setString= Object.keys(fields).map((key,index)=> `
+        "${key}"=$${index+1}`).join(`, `)
+        const {rows:[products]}= await client.query(`
+            UPDATE products SET ${setString}
+            WHERE id = ${id}
+            RETURNING *;`,Object.values(fields))
 
- return products
-   }
+        return products
+    }catch(error){
+        console.log(error)
+    }
+}
 
 async function getProductById(id){
     console.log("getting product by id#", id);
@@ -78,7 +83,6 @@ async function deleteProduct(id){
         WHERE id=$1
         RETURNING *;
         `, [id]);
-  
         return id, "product has been removed";
     } catch (error) {
       console.log(error);
