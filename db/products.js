@@ -76,6 +76,18 @@ async function getProductByTitle(titles){
     }
 }
 
+async function getProductPrice(id){
+    try{
+        const {rows:[price]} = await client.query(`
+        SELECT price FROM products
+        WHERE id = $1;`,
+        [id])
+        console.log(price)
+        return price;
+    }catch(error){
+        console.log(error)
+    }
+}
 async function deleteProduct(id){
     try {
       await client.query(`
@@ -89,11 +101,13 @@ async function deleteProduct(id){
     }
   }
 
+
 module.exports={
     createProduct,
     getProductById,
     getAllProducts,
     getProductByTitle,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getProductPrice
 }
