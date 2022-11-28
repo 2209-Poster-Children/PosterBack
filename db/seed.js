@@ -3,7 +3,7 @@ const{createUser, getAllUsers, createAdminUser} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
 const { createCart,getCartsByUserId, getActiveCartByUserId } = require('./cart');
-const{addItemToCartDetails}=require ('./cartDetails')
+const{addItemToCartDetails,getCartDetailsByCart, removeItemFromCartDetails}=require ('./cartDetails')
 const { createReview } = require('./reviews');
 
 async function createTables(){
@@ -90,7 +90,7 @@ async function createInitialUsers(){
         const shakira = await createUser({username:'shakiraHips',password:'beyonce' })
         const cantinflas = await createUser({username:'cantinflas', password:'soGo0d'})
         const ke$ha = await createUser({username:'ke$ha',password:'thepartydontStart'})
-
+        
         const ian = await createAdminUser({username:'Ian',password:'NoctisLuciusK1ng!',isAdmin:true})
         const madi = await createAdminUser({username:'Madi',password:'ThisIsMadisPassword',isAdmin:true})
         const drew = await createAdminUser({username:'Drewford',password:'Drewford',isAdmin:true})
@@ -185,9 +185,10 @@ async function testDB(){
         // await getProductById(1);
         // await getAllProducts();
         // await getProductByTitle('Scott Pilgrim');
-        await getCartsByUserId(4);
-        await getActiveCartByUserId(4);
-        // await getCartDetailsByCart();
+        // await getCartsByUserId(4);
+        // await getActiveCartByUserId(4);
+        await getCartDetailsByCart(4);
+        await removeItemFromCartDetails(2);
 }
 
 async function rebuildDB(){
