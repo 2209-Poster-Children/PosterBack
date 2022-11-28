@@ -179,6 +179,7 @@ async function testDB(){
         // await getProductByTitle('Scott Pilgrim');
         await getCartsByUserId(4);
         await getActiveCartByUserId(4);
+        
 }
 
 async function rebuildDB(){
