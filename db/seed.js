@@ -3,6 +3,7 @@ const{createUser, getAllUsers, createAdminUser} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
 const { createCart,getCartsByUserId, getActiveCartByUserId } = require('./cart');
+const{addItemToCartDetails}=require ('./cartDetails')
 const { createReview } = require('./reviews');
 
 async function createTables(){
@@ -159,6 +160,13 @@ async function createInitialCart(){
     }
 }
 
+async function createInitialCartDetails() {
+    const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2,priceBoughtAt:20.00})
+    const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1, priceBoughtAt:25.00})
+
+}
+
+
 async function createInitialReviews(){
     console.log("creating initial reviews...")
     try{
@@ -179,7 +187,7 @@ async function testDB(){
         // await getProductByTitle('Scott Pilgrim');
         await getCartsByUserId(4);
         await getActiveCartByUserId(4);
-        
+        // await getCartDetailsByCart();
 }
 
 async function rebuildDB(){
@@ -191,6 +199,7 @@ async function rebuildDB(){
     await createInitialAddress();
     await createInitialCart();
     await createInitialReviews();
+    await createInitialCartDetails();
     await testDB();
     client.end();
 }
