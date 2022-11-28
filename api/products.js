@@ -30,10 +30,19 @@ productsRouter.post('/',requireUser, requireAdmin,async(req,res,next)=>{
     }
 })
 
-//GET products/title
-productsRouter.get('/title',async(req,res,next)=>{
+productsRouter.get('/:id',async(req,res,next)=>{
     try{
-        const {title} = req.body;
+        const {id} = req.params;
+        const product = await getProductById(id)
+        res.send(product)
+    }catch(error){
+        console.log(error);
+    }
+})
+//GET products/title
+productsRouter.get('/title/:title',async(req,res,next)=>{
+    try{
+        const {title} = req.params;
         console.log(title)
         const product = await getProductByTitle(title)
         res.send(product)
@@ -41,6 +50,9 @@ productsRouter.get('/title',async(req,res,next)=>{
         console.log(error)
     }
 })
+
+
+
 
 productsRouter.patch('/',requireUser,requireAdmin,async (req,res,next)=>{
     try{
