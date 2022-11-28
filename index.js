@@ -16,6 +16,6 @@ app.use ('/api',apiRouter)
 const {client}=require('./db')
 
 client.connect()
-app.listen(3000,()=>{
+app.listen(3001,()=>{
     console.log('we are up and running on port 3000')
 })

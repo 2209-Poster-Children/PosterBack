@@ -45,6 +45,7 @@ async function getCartDetailsByCart(cartId){
     }
 }
 
+//add quanitity to cart
 
 module.exports= {
     addItemToCartDetails, 
