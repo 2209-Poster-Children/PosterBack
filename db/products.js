@@ -17,6 +17,19 @@ async function createProduct({
     }
 }
 
+async function updateProduct(
+   id, fields={}
+){console.log(fields)
+     const setString= Object.keys(fields).map((key,index)=> `
+    "${key}"=$${index+1}`).join(`, `)
+    const {rows:[products]}= await client.query(`
+        UPDATE products SET ${setString}
+        WHERE id = ${id}
+        RETURNING *;`,Object.values(fields))
+
+ return products
+   }
+
 async function getProductById(id){
     console.log("getting product by id#", id);
     try{
@@ -77,5 +90,6 @@ module.exports={
     getProductById,
     getAllProducts,
     getProductByTitle,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }

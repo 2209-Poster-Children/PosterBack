@@ -1,9 +1,10 @@
 const express= require('express')
 const {getAllProducts, getProductByTitle,
-    createProduct, getProductById} = require ('../db/products')
+    createProduct, getProductById, updateProduct } = require ('../db/products')
+const productsRouter = express.Router();
 const {requireUser} = require('./utils');
 const {requireAdmin} = require('./utilsadmin')
-const productsRouter = express.Router();
+
 
 
 productsRouter.get('/',async (req,res,next)=>{
@@ -36,6 +37,17 @@ productsRouter.get('/title',async(req,res,next)=>{
         console.log(title)
         const product = await getProductByTitle(title)
         res.send(product)
+    }catch(error){
+        console.log(error)
+    }
+})
+
+productsRouter.patch('/',requireUser,requireAdmin,async (req,res,next)=>{
+    try{
+        const {id,fields}=req.body;
+        const updatedProduct= await updateProduct(id,fields)
+        res.send (updatedProduct)
+        
     }catch(error){
         console.log(error)
     }
