@@ -72,6 +72,7 @@ async function getUser(
         else{return "user and or password incorrect!"};
     } catch(error){
         console.log(error);
+        // next({name: message: })
     }
 }
 

@@ -33,10 +33,10 @@ async function getCartDetailsByCart(cartId){
     try{
         const {rows} = await client.query(`
         SELECT * FROM cart
-        INNER JOIN "cartDetails"
+        RIGHT JOIN "cartDetails"
         ON cart.id = "cartDetails"."cartId"
-        WHERE "cartDetails"."cartId" = ${cartId};
-        `)
+        WHERE "cartDetails"."cartId" = $1;
+        `,[cartId])
         console.log(rows);
         return rows;
         
