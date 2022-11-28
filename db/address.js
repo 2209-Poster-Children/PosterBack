@@ -10,8 +10,7 @@ async function getAllAddressByUserId(id) {
     const { rows } = await client.query(`
       SELECT *
       FROM address
-      WHERE id=$1
-      RETURNING *;
+      WHERE id=$1;
       `, [id])
     
     console.log(rows)
