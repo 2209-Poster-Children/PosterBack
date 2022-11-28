@@ -2,7 +2,7 @@ const{client} = require('./index');
 const{createUser, getAllUsers, createAdminUser} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
-const { createCart } = require('./cart');
+const { createCart,getCartsByUserId, getActiveCartByUserId } = require('./cart');
 const { createReview } = require('./reviews');
 
 async function createTables(){
@@ -152,6 +152,8 @@ async function createInitialCart(){
         const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:40.01})
         const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:40})
         const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:60})
+        const ianCart = await createCart({userId:4, isActive:true, totalPrice:3000});
+        const ianCart2 = await createCart({userId:4, isActive:false, totalPrice: 10000});
     } catch(error){
         console.log(error);
     }
@@ -175,7 +177,8 @@ async function testDB(){
         // await getProductById(1);
         // await getAllProducts();
         // await getProductByTitle('Scott Pilgrim');
-        
+        await getCartsByUserId(4);
+        await getActiveCartByUserId(4);
 }
 
 async function rebuildDB(){
