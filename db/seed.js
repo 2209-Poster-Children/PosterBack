@@ -1,13 +1,9 @@
 const{client} = require('./index');
 const{createUser, getAllUsers, createAdminUser} = require('./users');
-const{createProduct, getProductById, 
-     getAllProducts, getProductByTitle} = require('./products');
+const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
-const { createCart, getCartsByUserId,
-     getActiveCartByUserId, deleteCart,
-    totalPricer } = require('./cart');
-const{addItemToCartDetails,getCartDetailsByCart,
-    addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
+const { createCart, getCartsByUserId, getActiveCartByUserId, deleteCart,totalPricer } = require('./cart');
+const{addItemToCartDetails,getCartDetailsByCart, addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
 const { createReview } = require('./reviews');
 
 

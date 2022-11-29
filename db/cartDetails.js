@@ -2,16 +2,17 @@ const {client}= require ('.')
 const { totalPricer } = require('./cart')
 const {getProductPrice}=require('./products')
 
-async function addItemToCartDetails({cartId,productId,quantity,priceBoughtAt}){
+async function addItemToCartDetails({cartId,productId,quantity}){
     try{
         const {price} = await getProductPrice(productId)
         const subtotal= price*quantity
+
         console.log(subtotal,'this is sub')
         const {rows:[cartDetails]}=await client.query(`
-            INSERT INTO "cartDetails"("cartId","productId",quantity,subtotal,"priceBoughtAt")
+            INSERT INTO "cartDetails"("cartId","productId",quantity,subtotal)
             VALUES ($1,$2,$3,$4,$5)
             RETURNING *;
-            `, [cartId,productId,quantity,subtotal,priceBoughtAt])
+            `, [cartId,productId,quantity,subtotal])
         console.log(cartDetails)
         //set totalPrice on Cart
         const newPrice = await totalPricer(cartId);

@@ -1,5 +1,6 @@
 const { client } = require(".");
 const bcrypt = require('bcrypt');
+const { createCart } = require("./cart");
 
 // create a bcrypt hasher and use it to pass password values.
 async function generateHashedValue(valueToHash){
@@ -26,8 +27,11 @@ async function createUser({
         RETURNING*;
         `,[username, password]);
         console.log(user , "has been created");
+        const newCart = await createCart({userId:user.id,isActive:true,totalPrice:0});
+
         return {username: user.username, id: user.id};
-        
+
+
     } catch(error){
         console.log(error);
     }
