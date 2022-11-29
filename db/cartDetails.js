@@ -45,9 +45,29 @@ async function getCartDetailsByCart(cartId){
     }
 }
 
+// priceBoughtAt should default to 0 until purchased then it will sit at the subtotal value.
+async function addQuantityToCart(cartId, productId, quantity){
+    try{
+        const {price} = await getProductPrice(productId)
+        const subtotal= price*quantity
+
+        const {rows} = await client.query(`
+            UPDATE "cartDetails" SET quantity= $1, subtotal = $2
+            WHERE "productId" =$3 AND "cartId" =$4
+            RETURNING *;
+            `,[quantity,subtotal,productId,cartId])
+        console.log(rows);
+        return rows
+    }catch(error){
+        console.log(error);
+    }
+}
+
 //add quanitity to cart
 
 module.exports= {
     addItemToCartDetails, 
     getCartDetailsByCart,
-    removeItemFromCartDetails}
+    removeItemFromCartDetails,
+    addQuantityToCart
+}
