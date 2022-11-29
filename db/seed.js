@@ -152,11 +152,15 @@ async function createInitialAddress(){
 async function createInitialCart(){
     console.log("creating initial cart...")
     try{
-        const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:40.01})
-        const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:40})
-        const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:60})
-        const ianCart = await createCart({userId:4, isActive:true, totalPrice:3000});
-        const ianCart2 = await createCart({userId:4, isActive:false, totalPrice: 10000});
+        const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:0})
+        const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:0})
+        const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
+        const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
+        const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
+        const Yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
+        const Madi =await createCart({userId:5,isActive:true,totalPrice:0});
+        const AndrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
+
     } catch(error){
         console.log(error);
     }
@@ -165,7 +169,11 @@ async function createInitialCart(){
 async function createInitialCartDetails() {
     const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2,priceBoughtAt:0})
     const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1, priceBoughtAt:0})
-
+    const donkayyyCartDetailsOne =await addItemToCartDetails({cartId:6,productId:15, quantity:5, priceBoughtAt:0})
+    const shrekCartDetails = await addItemToCartDetails({cartId:7,productId:9,quantity:7,priceBoughtAt:0})
+    const donkayyyCartDetailstwo =await addItemToCartDetails({cartId:8,productId:15,quantity:90,priceBoughtAt:0})
+    const princeCharming =await addItemToCartDetails({cartId:8,productId:5,quantity:7,priceBoughtAt:0})
+    const fairyGodMom =await addItemToCartDetails({ cartId:8,productId:12,quantity:10,priceBoughtAt:0})
 }
 
 
