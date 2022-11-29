@@ -48,6 +48,12 @@ async function getActiveCartByUserId(userId){
 // this function isn't going to work. with cart details 
 // being a dependant on deletecart
 // we need to delete cart details related to the cart first
+// we're never going to delete a cart, just pass it as false or remove all the items
+// unless the user quits the site
+
+// async function deleteCartDetails(){
+
+// }
 async function deleteCart(id){
     try {
       await client.query(`

@@ -3,8 +3,9 @@ const{createUser, getAllUsers, createAdminUser} = require('./users');
 const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
 const { createCart,getCartsByUserId, getActiveCartByUserId } = require('./cart');
-const{addItemToCartDetails,getCartDetailsByCart, removeItemFromCartDetails}=require ('./cartDetails')
+const{addItemToCartDetails,getCartDetailsByCart,addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
 const { createReview } = require('./reviews');
+
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
@@ -24,7 +25,7 @@ async function createTables(){
             price NUMERIC,
             quantity INTEGER,
             "imageUrl" VARCHAR(500),
-            "imageAlt" VARCHAR(50) default 'poster'
+            "imageAlt" VARCHAR(255) default 'poster'
         );
         CREATE TABLE address(
             id SERIAL PRIMARY KEY,
@@ -162,8 +163,8 @@ async function createInitialCart(){
 }
 
 async function createInitialCartDetails() {
-    const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2,priceBoughtAt:20.00})
-    const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1, priceBoughtAt:25.00})
+    const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2,priceBoughtAt:0})
+    const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1, priceBoughtAt:0})
 
 }
 
@@ -189,7 +190,8 @@ async function testDB(){
         // await getCartsByUserId(4);
         // await getActiveCartByUserId(4);
         await getCartDetailsByCart(4);
-        await removeItemFromCartDetails(2);
+        // await removeItemFromCartDetails(2);
+        await addQuantityToCart(4,2,3);
 }
 
 async function rebuildDB(){
