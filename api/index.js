@@ -51,8 +51,8 @@ const reviewsRouter = require('./reviews')
 apiRouter.use('/reviews',reviewsRouter)
 const addressRouter = require('./address')
 apiRouter.use('/address',addressRouter );
-// const cartRouter = require('./cart');
-// apiRouter.use('/cart',cartRouter);
+const cartRouter = require('./cart');
+apiRouter.use('/cart',cartRouter);
 
 // Error handling
 apiRouter.use((error, req, res, next) => {

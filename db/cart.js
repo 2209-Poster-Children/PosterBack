@@ -51,20 +51,20 @@ async function getActiveCartByUserId(userId){
 async function totalPricer(cartId){
   try{
     const {rows} = await client.query(`
-    SELECT subtotal FROM "cartDetails"
-    WHERE "cartId" = $1;`
-    ,[cartId])
+      SELECT subtotal FROM "cartDetails"
+      WHERE "cartId" = $1;`
+      ,[cartId])
     console.log(rows)
     let total= 0;
     rows.map((subtotalKey,idx)=>{
-      total+= +parseFloat(subtotalKey.subtotal).toFixed(2);
+      total+= +parseFloat(subtotalKey.subtotal);
     })
-    finalTotal = +total.toFixed(2)
+    finalTotal = +total.toFixed(2);
     const {rows: [newCart]} = await client.query(`
-    UPDATE cart SET "totalPrice" =$1
-    WHERE id =$2
-    RETURNING *
-    `,[finalTotal,cartId])
+      UPDATE cart SET "totalPrice" =$1
+      WHERE id =$2
+      RETURNING *
+      `,[finalTotal,cartId])
 
     console.log(newCart);
     return newCart;

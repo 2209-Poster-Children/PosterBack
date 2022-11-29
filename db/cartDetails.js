@@ -37,12 +37,31 @@ async function removeItemFromCartDetails(productId,cartId){
 }
 
 async function getCartDetailsByCart(cartId){
+    //talk to the team about the join query
     try{
         const {rows} = await client.query(`
-        SELECT * FROM cart
-        RIGHT JOIN "cartDetails"
-        ON cart.id = "cartDetails"."cartId"
-        WHERE "cartDetails"."cartId" = $1;
+        SELECT cart.id AS "cartId", 
+        cart."totalPrice",
+        CASE WHEN "cartDetails"."cartId" IS NULL THEN '[]'::json
+        ELSE
+        JSON_AGG(
+            JSON_BUILD_OBJECT(
+                'productId', products.id,
+                'title', products.title,
+                'price', products.price,
+                'quantity', "cartDetails".quantity,
+                'imageUrl', products."imageUrl",
+                'imageAlt', products."imageAlt",
+                'subtotal', "cartDetails".subtotal
+            )
+        ) END AS products
+        FROM cart
+        LEFT JOIN "cartDetails" 
+            ON cart.id = "cartDetails"."cartId"
+        LEFT JOIN "products"
+            ON products.id = "cartDetails"."productId"
+        WHERE "cartDetails"."cartId" = $1
+        GROUP BY cart.id, "cartDetails"."cartId";
         `,[cartId])
         console.log(rows);
         return rows;
