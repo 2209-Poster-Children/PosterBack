@@ -1,5 +1,8 @@
 const express=require('express')
 const {getAllUsers, createUser, getUser, getUserByUsername}=require ('../db/users')
+const {getActiveCartByUserId, getCartsByUserId} = require('../db/cart');
+const { getAllAddressByUserId } = require('../db/address');
+const { getAllReviewsById } = require('../db/reviews');
 const {requireUser} = require('./utils');
 const usersRouter=express.Router()
 const jwt = require('jsonwebtoken');
@@ -10,9 +13,9 @@ const {JWT_SECRET} =process.env;
 usersRouter.get('/',async(req,res,next)=>{
     try{
       const users = await getAllUsers();
-      res.send({users})
-    } catch(error){
-      console.log(error);
+      res.send(users)
+    } catch ( { name, message } ) {
+      next({ name, message })
     }
   });
 
@@ -25,15 +28,21 @@ usersRouter.post('/login',async (req,res,next)=>{
   try{
     const user = await getUser(username,password);
     console.log("this is my user obj", user);
-    if(user && user.password == password){
+    if (user) {
       const token = jwt.sign({ username: username, id: user.id}, JWT_SECRET,{expiresIn:"1w"})
       req.user = user;
       res.send({message: "Congratulations! You're logged in!", token});
     } else {
-      next("Incorrect login credentials, please try again")
+      if (!user) {
+        next({
+          name:'IncorrectCredentialsError',
+          message:'Username or password is incorrect'
+        });
+      }
+
     }
-  } catch(error){
-    console.log(error)
+  } catch ( { name, message } ) {
+    next({ name, message })
   }
 })
 
@@ -43,22 +52,47 @@ usersRouter.post('/register', async (req,res,next)=>{
   //the request body values 
   const {username, password} =req.body;
   try{
-  if(!username || !password) return "no username or password values entered"
-  //create new user, new token to immediately login if we wish upon register
-    if(password.length <8 ){ res.error("Password is too short")}
-    if(username.length <3 ){ res.error("Username is too short")}
-    
-    const user = await createUser({ username,password})
-    const token = jwt.sign(
-    {id: user.id, username}, process.env.JWT_SECRET, {expiresIn: '1w'})
+    if(!username || !password) {
+      next({ 
+        name: 'MissingCredentials', 
+        message: 'Missing username or password'
+      });
+    }
+    //create new user, new token to immediately login if we wish upon register
+      if(password.length <8 ){ 
+        next({ 
+          name: 'PasswordTooShortError', 
+          message: 'Password is too short, must be at least 8 characters'
+        });
+      }
+      if(username.length <3 ){
+        next({ 
+          name: 'UsernameTooShort', 
+          message: 'Username is too short, must be at least 3 characters'
+        });
+      }
 
-    res.send({
-      message:"thank you for signing up!",
-      token
-    })
+      const _user = await getUserByUsername(username);
 
-  }catch(error){
-    console.log(error);
+      if (_user) {
+        next({
+          name: 'UserExistsError',
+          message: 'A user by that username already exists'
+        });
+      }
+      
+      const user = await createUser({ username,password})
+      const token = jwt.sign(
+      {id: user.id, username}, process.env.JWT_SECRET, {expiresIn: '1w'})
+
+      res.send({
+        message:"thank you for signing up!",
+        token,
+        user
+      })
+
+  } catch ( { name, message } ) {
+    next({ name, message })
   }
 });
 
@@ -68,11 +102,14 @@ usersRouter.get('/me',requireUser, async(req, res, next) => {
   try {
       console.log(req.user)
       const user = await getUserByUsername(req.user.username);
-      console.log(req.user.username)
-      res.send({ user });
+      const addresses = await getAllAddressByUserId(user.id);
+      const activeCart = await getActiveCartByUserId(user.id);
+      const allCarts = await getCartsByUserId(user.id);
+      const reviews = await getAllReviewsById(user.id);
+      res.send({ user, addresses, activeCart, allCarts, reviews });
 
-  } catch ({name,message}){
-    next({name,message})
+    } catch ( { name, message } ) {
+      next({ name, message })
   }
 });
 

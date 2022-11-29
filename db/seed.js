@@ -23,7 +23,8 @@ async function createTables(){
             description TEXT NOT NULL,
             price NUMERIC,
             quantity INTEGER,
-            "imageUrl" VARCHAR(500)
+            "imageUrl" VARCHAR(500),
+            "imageAlt" VARCHAR(50) default 'poster'
         );
         CREATE TABLE address(
             id SERIAL PRIMARY KEY,
@@ -90,7 +91,7 @@ async function createInitialUsers(){
         const shakira = await createUser({username:'shakiraHips',password:'beyonce' })
         const cantinflas = await createUser({username:'cantinflas', password:'soGo0d'})
         const ke$ha = await createUser({username:'ke$ha',password:'thepartydontStart'})
-        
+
         const ian = await createAdminUser({username:'Ian',password:'NoctisLuciusK1ng!',isAdmin:true})
         const madi = await createAdminUser({username:'Madi',password:'ThisIsMadisPassword',isAdmin:true})
         const drew = await createAdminUser({username:'Drewford',password:'Drewford',isAdmin:true})
@@ -107,15 +108,20 @@ async function createInitialProducts(){
     try{
         console.log('creating initial products');
         const scottPilgrim = await createProduct({title:'Scott Pilgrim',description:'Why is he dressed like a pirate?',price:20.00,quantity:300, imageUrl:"https://m.media-amazon.com/images/I/51FrvGUJD3L._AC_SY580_.jpg"})
+<<<<<<< HEAD
         const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:20.00, quantity:1000})
         const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:"https://files.slack.com/files-pri/T024FPYBQ-F04DGQRFWCQ/image.png"})
+=======
+        const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:20.00, quantity:1000,imageUrl:"https://ih1.redbubble.net/image.1024303529.4101/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",imageAlt:"A teenager walks towards a motorcycle and there's lots of red"})
+        const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234})
+>>>>>>> adbb58665e5a99923aa022defc61bc780ea7d86a
         const theOutsiders = await createProduct({title:'The Outsiders', description:'Tom Cruise in his first role', price:50.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg'});
         const theSilenceOfLambs = await createProduct({ title:'The Silence of The Lambs',description:'disturbing Old Man eats people ',price:20, quantity:10,imageUrl:'https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg'})
         const alienET = await createProduct({ title:'E.T',description:' EEEEE.TTTTTT ',price:20.00,quantity:10, imageUrl:'https://i.pinimg.com/474x/f6/23/07/f623079bcc02b49ab9a839b239c81b9d.jpg' })
         const westSideStory = await createProduct({ title:'West Side Story', description:'A rivalry between ethnic backgrounds *Eyeroll* ', price:10.00,quantity:10, imageUrl:'https://i.pinimg.com/564x/83/b2/a0/83b2a0298f4a5c18278aefa9a440ae43.jpg'})
         const littleWomen = await createProduct({ title:'Little Women',description:'4 sisters',price:25.00,quantity:20, imageUrl:'https://i.pinimg.com/564x/a1/ae/90/a1ae90417b7e8a037ad20b16392ce17e.jpg'})
         const ladyOnFire = await createProduct({ title: 'Portrait of a Lady On Fire', description:' ouch',price:20.00,quantity:10, imageUrl: 'https://cdn.shopify.com/s/files/1/0275/8351/2681/products/PLF_AkikoPoster_2000x@2x.progressive.jpg?v=1654199751'})
-        const blackSwan =await createProduct({title:'Black Swan',description:'A confusing movie dont watch when a toddler', price:20.00,quantity:10,imageUrl:'https://i.pinimg.com/564x/ce/0c/ff/ce0cff6131d1c7946aa514f7b6748fa2.jpg' })
+        const blackSwan =await createProduct({title:'Black Swan',description:'A confusing movie dont watch when a toddler', price:20.00,quantity:10,imageUrl:'https://i.pinimg.com/564x/ce/0c/ff/ce0cff6131d1c7946aa514f7b6748fa2.jpg',imageAlt:"an image of the poster for black swan" })
         const hereditary =await createProduct({ title:'Hereditary',description:'A WTF kind of movie', price:15.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/89/a6/e0/89a6e080474623cf3bfce05163fac57b.jpg'})
         const midSommar =await createProduct({ title:'Midsommar',description:'Culty',price:20.00,quantity:15,imageUrl:'https://i.pinimg.com/564x/bb/ab/1c/bbab1ca03a8b81457c02133c4f0a365d.jpg'})
         const everythingEverywhere = await createProduct({ title: 'Everything Everywhere All At Once', description:'crazy', price:20.00, quantity:15, imageUrl:'https://i.pinimg.com/564x/43/4d/be/434dbe2df3ad3afeccb0011659e978bf.jpg'})
