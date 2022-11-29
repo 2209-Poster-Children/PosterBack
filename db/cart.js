@@ -31,6 +31,7 @@ async function getCartsByUserId(userId){
     console.log(error)
   }
 }
+
 async function getActiveCartByUserId(userId){
   console.log("getting Active cart by user id" , userId)
   try{
@@ -45,32 +46,68 @@ async function getActiveCartByUserId(userId){
   }
 }
 
-// this function isn't going to work. with cart details 
-// being a dependant on deletecart
-// we need to delete cart details related to the cart first
-// we're never going to delete a cart, just pass it as false or remove all the items
-// unless the user quits the site
+//this baby changes the total price of the cartId every time
+//a value in cart details changes.
+async function totalPricer(cartId){
+  try{
+    const {rows} = await client.query(`
+    SELECT subtotal FROM "cartDetails"
+    WHERE "cartId" = $1;`
+    ,[cartId])
+    console.log(rows)
+    let total= 0;
+    rows.map((subtotalKey,idx)=>{
+      total+= +parseFloat(subtotalKey.subtotal).toFixed(2);
+    })
+    finalTotal = +total.toFixed(2)
+    const {rows: [newCart]} = await client.query(`
+    UPDATE cart SET "totalPrice" =$1
+    WHERE id =$2
+    RETURNING *
+    `,[finalTotal,cartId])
 
-// async function deleteCartDetails(){
+    console.log(newCart);
+    return newCart;
+    
+  } catch(error){
+    console.log(error);
+  }
+}
 
-// }
+async function obliterateAllCartDetails(cartId){
+  try{
+    
+    const obliterate = await client.query(`
+    DELETE FROM "cartDetails" 
+    WHERE "cartId" =$1 RETURNING *;
+    `, [cartId])
+    console.log("obliterate" ,obliterate)
+    return obliterate;
+  } catch(error){
+    console.log(error)
+  }
+}
+
 async function deleteCart(id){
     try {
+      const obliterate = await obliterateAllCartDetails(id);
       await client.query(`
-        DELETE FROM carts
-        WHERE id=$1
+        DELETE FROM cart
+        WHERE id =$1
         RETURNING *;
         `, [id]);
   
-        return id, "cart has been emptied";
+      return id, "cart has been emptied";
     } catch (error) {
       console.log(error);
     }
 }
-
+ 
 module.exports={
     createCart,
     deleteCart,
     getCartsByUserId,
-    getActiveCartByUserId
+    getActiveCartByUserId,
+    obliterateAllCartDetails,
+    totalPricer
 }
