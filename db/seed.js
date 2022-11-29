@@ -108,7 +108,7 @@ async function createInitialProducts(){
         console.log('creating initial products');
         const scottPilgrim = await createProduct({title:'Scott Pilgrim',description:'Why is he dressed like a pirate?',price:20.00,quantity:300, imageUrl:"https://m.media-amazon.com/images/I/51FrvGUJD3L._AC_SY580_.jpg"})
         const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:20.00, quantity:1000})
-        const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234})
+        const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:"https://files.slack.com/files-pri/T024FPYBQ-F04DGQRFWCQ/image.png"})
         const theOutsiders = await createProduct({title:'The Outsiders', description:'Tom Cruise in his first role', price:50.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg'});
         const theSilenceOfLambs = await createProduct({ title:'The Silence of The Lambs',description:'disturbing Old Man eats people ',price:20, quantity:10,imageUrl:'https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg'})
         const alienET = await createProduct({ title:'E.T',description:' EEEEE.TTTTTT ',price:20.00,quantity:10, imageUrl:'https://i.pinimg.com/474x/f6/23/07/f623079bcc02b49ab9a839b239c81b9d.jpg' })
@@ -126,7 +126,7 @@ async function createInitialProducts(){
         const arcticMonkeys=await createProduct({title:'Arctic Monkey',description:'Band', price:20.00,quantity:12, imageUrl:'https://i.pinimg.com/564x/22/61/59/226159347177904e4de8779f3c097b7b.jpg'})
         const szaa=await createProduct({title:'sza', description:'Artist',price:25.00, quantity:10, imageUrl:'https://i.pinimg.com/474x/18/fd/2c/18fd2c38f5cf7d4e124a7c7792e99c41.jpg '})
         const theWeeknd =await createProduct({title:'The Weeknd', description:'sad- mf',price:25.00,quantity:23, imageUrl:'https://i.pinimg.com/564x/bf/62/bb/bf62bb91015676488c5adda1251d997d.jpg' })
-        
+        const theBookThief = await createProduct({title:'The Book Theif',description:'Leisel,Germany ww2',price:3009,quantity:2013,imageUrl:"https://i.pinimg.com/564x/65/2f/9a/652f9a7c4e9eaa7a0817bf3acd3d3ee2.jpg"})
         console.log(scottPilgrim,akira, jackieBrown,theOutsiders,theSilenceOfLambs,alienET,westSideStory,littleWomen,ladyOnFire,blackSwan)
 
     } catch(error){
