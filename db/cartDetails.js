@@ -10,7 +10,7 @@ async function addItemToCartDetails({cartId,productId,quantity}){
         console.log(subtotal,'this is sub')
         const {rows:[cartDetails]}=await client.query(`
             INSERT INTO "cartDetails"("cartId","productId",quantity,subtotal)
-            VALUES ($1,$2,$3,$4,$5)
+            VALUES ($1,$2,$3,$4)
             RETURNING *;
             `, [cartId,productId,quantity,subtotal])
         console.log(cartDetails)
@@ -83,7 +83,6 @@ async function addQuantityToCart(cartId, productId, quantity){
             WHERE "productId" =$3 AND "cartId" =$4
             RETURNING *;
             `,[quantity,subtotal,productId,cartId])
-        console.log(rows);
         //set totalPrice on cart
         const newPrice = totalPricer(cartId);
         return rows

@@ -89,6 +89,7 @@ async function getProductPrice(id){
         console.log(error)
     }
 }
+
 async function deleteProduct(id){
     try {
       await client.query(`

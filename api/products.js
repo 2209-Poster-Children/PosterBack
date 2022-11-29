@@ -65,4 +65,7 @@ productsRouter.patch('/',requireUser,requireAdmin,async (req,res,next)=>{
     }
 })
 
+// need to write a delete router for products
+
+
 module.exports = productsRouter;

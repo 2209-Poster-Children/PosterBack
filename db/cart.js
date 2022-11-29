@@ -54,7 +54,7 @@ async function totalPricer(cartId){
       SELECT subtotal FROM "cartDetails"
       WHERE "cartId" = $1;`
       ,[cartId])
-    console.log(rows)
+
     let total= 0;
     rows.map((subtotalKey,idx)=>{
       total+= +parseFloat(subtotalKey.subtotal);
@@ -66,7 +66,7 @@ async function totalPricer(cartId){
       RETURNING *
       `,[finalTotal,cartId])
 
-    console.log(newCart);
+  
     return newCart;
     
   } catch(error){

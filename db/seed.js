@@ -1,9 +1,12 @@
 const{client} = require('./index');
 const{createUser, getAllUsers, createAdminUser} = require('./users');
-const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
+const{createProduct, getProductById, 
+    getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
-const { createCart, getCartsByUserId, getActiveCartByUserId, deleteCart,totalPricer } = require('./cart');
-const{addItemToCartDetails,getCartDetailsByCart, addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
+const { createCart, getCartsByUserId, 
+    getActiveCartByUserId, deleteCart,totalPricer } = require('./cart');
+const{addItemToCartDetails,getCartDetailsByCart,
+     addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
 const { createReview } = require('./reviews');
 
 
@@ -46,13 +49,8 @@ async function createTables(){
             "cartId" INTEGER REFERENCES cart(id),
             "productId" INTEGER REFERENCES products(id),
             quantity INTEGER,
-<<<<<<< HEAD
-            subtotal DECIMAL,
-            "priceBoughtAt" NUMERIC
-=======
             subtotal NUMERIC,
             "priceBoughtAt" NUMERIC DEFAULT 0
->>>>>>> 32bdd83d892fca17978647ab039edf49700076cd
         );
         CREATE TABLE reviews(
             id SERIAL PRIMARY KEY,
@@ -157,24 +155,24 @@ async function createInitialAddress(){
 async function createInitialCart(){
     console.log("creating initial cart...")
     try{
-        const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:0})
-        const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:0})
-        const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
-        const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
-        const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
-        const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
-        const madi =await createCart({userId:5,isActive:true,totalPrice:0});
-        const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
-        const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
-        const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
-        const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
-        const katyP = await createCart({ userId:10,isActive:true,totalPrice:0})
-        const donkayyy = await createCart({userId:11, isActive:true,totalPrice:0})
-        const madonna = await createCart({userId:12, isActive:true,totalPrice:0})
-        const gwenS =await createCart({userId:13,isActive:true,totalPrice:0})
-        const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
-        const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
-        const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
+        // const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:0})
+        // const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:0})
+        // const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
+        // const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
+        // const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
+        // const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
+        // const madi =await createCart({userId:5,isActive:true,totalPrice:0});
+        // const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
+        // const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
+        // const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
+        // const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
+        // const katyP = await createCart({ userId:10,isActive:true,totalPrice:0})
+        // const donkayyy = await createCart({userId:11, isActive:true,totalPrice:0})
+        // const madonna = await createCart({userId:12, isActive:true,totalPrice:0})
+        // const gwenS =await createCart({userId:13,isActive:true,totalPrice:0})
+        // const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
+        // const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
+        // const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
 
     } catch(error){
         console.log(error);
