@@ -46,8 +46,13 @@ async function createTables(){
             "cartId" INTEGER REFERENCES cart(id),
             "productId" INTEGER REFERENCES products(id),
             quantity INTEGER,
+<<<<<<< HEAD
             subtotal DECIMAL,
             "priceBoughtAt" NUMERIC
+=======
+            subtotal NUMERIC,
+            "priceBoughtAt" NUMERIC DEFAULT 0
+>>>>>>> 32bdd83d892fca17978647ab039edf49700076cd
         );
         CREATE TABLE reviews(
             id SERIAL PRIMARY KEY,
@@ -157,9 +162,19 @@ async function createInitialCart(){
         const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
         const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
         const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
-        const Yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
-        const Madi =await createCart({userId:5,isActive:true,totalPrice:0});
-        const AndrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
+        const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
+        const madi =await createCart({userId:5,isActive:true,totalPrice:0});
+        const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
+        const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
+        const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
+        const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
+        const katyP = await createCart({ userId:10,isActive:true,totalPrice:0})
+        const donkayyy = await createCart({userId:11, isActive:true,totalPrice:0})
+        const madonna = await createCart({userId:12, isActive:true,totalPrice:0})
+        const gwenS =await createCart({userId:13,isActive:true,totalPrice:0})
+        const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
+        const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
+        const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
 
     } catch(error){
         console.log(error);
@@ -167,13 +182,13 @@ async function createInitialCart(){
 }
 
 async function createInitialCartDetails() {
-    const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2,priceBoughtAt:0})
-    const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1, priceBoughtAt:0})
-    const donkayyyCartDetailsOne =await addItemToCartDetails({cartId:6,productId:15, quantity:5, priceBoughtAt:0})
-    const shrekCartDetails = await addItemToCartDetails({cartId:7,productId:9,quantity:7,priceBoughtAt:0})
-    const donkayyyCartDetailstwo =await addItemToCartDetails({cartId:8,productId:15,quantity:90,priceBoughtAt:0})
-    const princeCharming =await addItemToCartDetails({cartId:8,productId:5,quantity:7,priceBoughtAt:0})
-    const fairyGodMom =await addItemToCartDetails({ cartId:8,productId:12,quantity:10,priceBoughtAt:0})
+    const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2})
+    const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1})
+    const donkayyyCartDetailsOne =await addItemToCartDetails({cartId:6,productId:15, quantity:5})
+    const shrekCartDetails = await addItemToCartDetails({cartId:7,productId:9,quantity:7})
+    const donkayyyCartDetailstwo =await addItemToCartDetails({cartId:8,productId:15,quantity:90})
+    const princeCharming =await addItemToCartDetails({cartId:8,productId:5,quantity:7})
+    const fairyGodMom =await addItemToCartDetails({ cartId:8,productId:12,quantity:10})
 }
 
 
@@ -183,6 +198,19 @@ async function createInitialReviews(){
         const itCameInRipped = await createReview({userId:1,productId:2,title:"It came in ripped",description:"My poster must've been delivered by a crazy dude, because it came in the mail ripped, but the company was willing to replace it for free! Thanks poster-children!"})
         const highQuality = await createReview({userId:2,productId:3,title:"Very Shiny high quality",description:"My poster was glittering and bright! I love it!"})
         const cheapAndGood = await createReview({userId:3,productId:1,title:"Hung it up right away..!", description:"I had to go buy a poster frame for this amazing poster right away and hung it up in my living room!" })
+        const trueToSize = await createReview({user:4,productId:4,title:"True to size!",description:"I thought it would be smaller but was super true to size!!!"})
+        const notAScam = await createReview({user:5,productId:5,title:"SOOO NOT SCAM !",description:"Was super surprised it was not a scam"})
+        const yyehaaaww =await createReview({ user:11, productId:6,title:"*western accent*" ,description:"I loveddd the way my yeehaw poster looked with my cow print wall"})
+        const buildingOnFire = await createReview({userId:8,productId:7,title:"FIREEE",description:"My complex was on fire but I HAD to run back for my poster!"})
+        const myKid = await createReview({userId:9,productId:8,title: "sad kids",description :" my kids cried because the poster was ugly"})
+        const jail =await createReview({ userId:10,productId:9,title:"Gwen stefani",description:"🤌🏼 so good"})
+        const et = await createReview({userId:17,productId:10,title:"E.TTTT",description:"Couldve picked a better poster"})
+        const comoSeDice = await createReview({userId:12,productId:11,title:"Como se dice", description:"estas cosas son del diablio"})
+        const dog = await createReview({userId:13, productId:12,title:"My dog 8 it ", description:"its not dog proof"})
+        const mymom = await createReview({userId:14,productId:12, title:"my mom", description:"my mom says its to expensif for what im getting"})
+        const heh = await createReview({userId:15,productId:13,title:"ew",description:"smelled like plastic"})
+        const aye = await createReview({userId:16,productId:14,title:" Canada", description:"shipped all the way to canada aye"})
+        const sucks = await createReview({userId:7,productId:15,title:"EHH",description:"Was super MID gave it to my mom to clean the floor"})
     }catch(error){
         console.log(error);
     }
