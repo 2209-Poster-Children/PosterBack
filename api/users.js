@@ -67,14 +67,15 @@ usersRouter.post('/register', async (req,res,next)=>{
           message: 'Password is too short, must be at least 8 characters'
         });
       }
-      if(username.length <3 ){
+      else if(username.length <3 ){
         next({ 
           name: 'UsernameTooShort', 
           message: 'Username is too short, must be at least 3 characters'
         });
-      }
-
+      } else {
       const _user = await getUserByUsername(username);
+
+      
 
       if (_user) {
         next({
@@ -92,7 +93,7 @@ usersRouter.post('/register', async (req,res,next)=>{
         token,
         user
       })
-
+    }
   } catch ( { name, message } ) {
     next({ name, message })
   }
