@@ -8,17 +8,18 @@ const usersRouter=express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} =process.env;
 
-
 // delete this b4 exporting the client 
-usersRouter.get('/',async(req,res,next)=>{
-    try{
-      const users = await getAllUsers();
-      res.send(users)
-    } catch ( { name, message } ) {
-      next({ name, message })
-    }
-  });
+// GET /api/users/
+// usersRouter.get('/',async(req,res,next)=>{
+//     try{
+//       const users = await getAllUsers();
+//       res.send(users)
+//     } catch ( { name, message } ) {
+//       next({ name, message })
+//     }
+//   });
 
+// POST /api/users/login
 usersRouter.post('/login',async (req,res,next)=>{
   const { username,password } =req.body;
 
@@ -27,7 +28,7 @@ usersRouter.post('/login',async (req,res,next)=>{
   }
   try{
     const user = await getUser(username,password);
-    console.log("this is my user obj", user);
+    // console.log("this is my user obj", user);
     if (user) {
       const token = jwt.sign({ username: username, id: user.id}, JWT_SECRET,{expiresIn:"1w"})
       req.user = user;
@@ -48,6 +49,7 @@ usersRouter.post('/login',async (req,res,next)=>{
 
 
 // never pass admin create separate function for promoting users (never pass req.body entirely)
+// POST /api/users/register
 usersRouter.post('/register', async (req,res,next)=>{
   //the request body values 
   const {username, password} =req.body;
@@ -96,11 +98,10 @@ usersRouter.post('/register', async (req,res,next)=>{
   }
 });
 
-
-
+// GET /api/users/me
 usersRouter.get('/me',requireUser, async(req, res, next) => {
   try {
-      console.log(req.user)
+      // console.log(req.user)
       const user = await getUserByUsername(req.user.username);
       const addresses = await getAllAddressByUserId(user.id);
       const activeCart = await getActiveCartByUserId(user.id);
@@ -112,8 +113,6 @@ usersRouter.get('/me',requireUser, async(req, res, next) => {
       next({ name, message })
   }
 });
-
-
 
 
 module.exports = usersRouter;
