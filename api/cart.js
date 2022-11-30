@@ -21,7 +21,8 @@ cartRouter.get('/',requireUser, async(req,res,next)=>{
     }
 })
 
-cartRouter.get('/allCart/',requireUser, async(req,res,next)=>{
+// GET /api/cart/allcart
+cartRouter.get('/allcart/',requireUser, async(req,res,next)=>{
     try{
         const {id} = await getActiveCartByUserId(req.user.id);
         const carts = await getCartsByUserId(id)
