@@ -21,6 +21,13 @@ cartRouter.get('/',requireUser, async(req,res,next)=>{
     }
 })
 
+cartRouter.get('/',requireUser, async(req,res,next)=>{
+    try{
+        
+    }catch(error){
+        next({name,message})
+    }
+})
 // POST /api/cart
 cartRouter.post('/',requireUser, async(req,res,next)=>{
     try{
