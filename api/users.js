@@ -10,14 +10,14 @@ const {JWT_SECRET} =process.env;
 
 // delete this b4 exporting the client 
 // GET /api/users/
-// usersRouter.get('/',async(req,res,next)=>{
-//     try{
-//       const users = await getAllUsers();
-//       res.send(users)
-//     } catch ( { name, message } ) {
-//       next({ name, message })
-//     }
-//   });
+usersRouter.get('/',async(req,res,next)=>{
+    try{
+      const users = await getAllUsers();
+      res.send(users)
+    } catch ( { name, message } ) {
+      next({ name, message })
+    }
+  });
 
 // POST /api/users/login
 usersRouter.post('/login',async (req,res,next)=>{
