@@ -5,6 +5,7 @@ const {requireUser} = require('./utils');
 const {getCartDetailsByCart, addItemToCartDetails, addQuantityToCart, removeItemFromCartDetails} = require('../db/cartDetails');
 
 // I need to write prohibitive code that only allows users of carts to act upon their own carts.. 
+// also guest cart permissions, thinking about that one as well, changing a guest cart to a user cart when they register.
 // Thinking of a way to do that
 // GET /api/cart
 cartRouter.get('/',requireUser, async(req,res,next)=>{
