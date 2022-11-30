@@ -149,11 +149,11 @@ async function createInitialProducts(){
         const dtrt = await createProduct({title:'Do The Right Thing',description:'',price:23.00,quantitiy:90,imageUrl:"https://product-image.juniqe-production.juniqe.com/media/catalog/product/seo-cache/x800/133/25/133-25-101P/Do-The-Right-Thing-Bruno-Morphet-Poster.jpg"})
         const waves = await createProduct({title:'Waves',description:'', price:25.00, quantity:454,imageUrl:"http://www.impawards.com/2019/posters/waves_ver2.jpg"})
         const stby = await createProduct({title:'Sorry To Bother You',description:'',price:23.00,quantity:234,imageUrl:"https://m.media-amazon.com/images/M/MV5BNjgwMmI4YzUtZGI2Mi00M2MwLWIyMmMtZWYzMWZmNzAyNmYwXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg"})
-        const dmfm = await createProducts ({title:'Dial M for Murder',description:'',price:45.00,quantitiy:243,imageUrl:"https://i.ytimg.com/vi/Jl9rsKq1BTQ/movieposter_en.jpg"})
+        const dmfm = await createProduct ({title:'Dial M for Murder',description:'',price:45.00,quantitiy:243,imageUrl:"https://i.ytimg.com/vi/Jl9rsKq1BTQ/movieposter_en.jpg"})
         const logan = await createProduct({title:'Logan',description:'', price:45.00,quantity:564,imageUrl:"https://upload.wikimedia.org/wikipedia/en/3/37/Logan_2017_poster.jpg"})
         const tng = await createProduct({title:'The Nice Guys', description:'',price:23.00,quantity:23,imageUrl:"https://m.media-amazon.com/images/M/MV5BODNlNmU4MGItMzQwZi00NGQyLWEyZWItYjFkNmI0NWI4NjBhXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg"})
         const ttb = await createProduct({title:'Train to busan',description:'',price:90.00,quantity:890,imageUrl:"https://flxt.tmsimg.com/assets/p13070850_p_v8_ay.jpg"})
-        
+
         console.log(scottPilgrim,akira, jackieBrown,theOutsiders,theSilenceOfLambs,alienET,westSideStory,littleWomen,ladyOnFire,blackSwan)
 
 
