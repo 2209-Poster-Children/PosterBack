@@ -92,7 +92,7 @@ async function createInitialUsers(){
         const shakira = await createUser({username:'shakiraHips',password:'beyonce' })
         const cantinflas = await createUser({username:'cantinflas', password:'soGo0d'})
         const ke$ha = await createUser({username:'ke$ha',password:'thepartydontStart'})
-        const andrewCart=await createUser({username:'dreW', password:'DrEwFord'})
+        const jennA=await createUser({username:'Jennifer', password:'anniston'})
         const shrekS = await createUser({username:'Shreksss',password:'Shrek+Fiona'})
         const fionaFFA = await createUser({username:'FionaFf',password:'FIONAfaRfArAwaY'})
         const jefferyD = await createUser({username:'LoveHearts',password:'IeatHarts'})
@@ -170,7 +170,7 @@ async function createInitialCart(){
         const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
         const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
         const madi =await createCart({userId:5,isActive:true,totalPrice:0});
-        const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
+        const jennaA=await createCart({userId:6,isActive:true,totalPrice:0});
         const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
         const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
         const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
