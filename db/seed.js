@@ -136,8 +136,8 @@ async function createInitialProducts(){
         const midSommar =await createProduct({ title:'Midsommar',description:'Culty',price:20.00,quantity:15,imageUrl:'https://i.pinimg.com/564x/bb/ab/1c/bbab1ca03a8b81457c02133c4f0a365d.jpg'})
         const everythingEverywhere = await createProduct({ title: 'Everything Everywhere All At Once', description:'crazy', price:20.00, quantity:15, imageUrl:'https://i.pinimg.com/564x/43/4d/be/434dbe2df3ad3afeccb0011659e978bf.jpg'})
         const spiderMan = await createProduct({ title:'Spiderman Into The Spiderverse', description:' Miles Morales', price:20.00,quantity:15, imageUrl:'https://i.pinimg.com/564x/c4/b0/b3/c4b0b31635fb0c935271c979f2d3bcf7.jpg'})
-        const wolfOfWalls=await createProduct({ title: 'Wolf Of Wallstreet',description:'self explanatory', price:20.00,quantity:10, imageUrl:'https://i.pinimg.com/564x/27/d5/db/27d5db11ab103f957a14949b64d09cfb.jpg'})
-        const barbarian =await createProduct({ title:'Barbarian', description:'Airbnb nightmare', price:25.00, quantity:15, imageUrl:'https://i.pinimg.com/564x/5a/4f/68/5a4f6895951d37ff5da9832727606ea8.jpg'})
+        const wolfOfWalls=await createProduct({ title: 'Wolf Of Wallstreet',description:'self explanatory', price:20.00,quantity:10, imageUrl:'https://i5.walmartimages.com/asr/7eb0cdc8-47a7-406d-ac83-59db69071a17_1.7fc5796fe564d76ad9af069d6cce4a41.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'})
+        const barbarian =await createProduct({ title:'Barbarian', description:'Airbnb nightmare', price:25.00, quantity:15, imageUrl:'https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2022/09/barbarian-art.jpg?ssl=1'})
         const bleachers =await createProduct({ title:' The Bleachers',description:'Band',price:20.00,quantity:20,imageUrl:'https://i.pinimg.com/564x/04/a0/9c/04a09c7b371408dfb0d617f7a97110cf.jpg'})
         const arcticMonkeys=await createProduct({title:'Arctic Monkey',description:'Band', price:20.00,quantity:12, imageUrl:'https://i.pinimg.com/564x/22/61/59/226159347177904e4de8779f3c097b7b.jpg'})
         const szaa=await createProduct({title:'sza', description:'Artist',price:25.00, quantity:10, imageUrl:'https://i.pinimg.com/474x/18/fd/2c/18fd2c38f5cf7d4e124a7c7792e99c41.jpg '})
@@ -153,7 +153,7 @@ async function createInitialProducts(){
         const logan = await createProduct({title:'Logan',description:'', price:45.00,quantity:564,imageUrl:"https://upload.wikimedia.org/wikipedia/en/3/37/Logan_2017_poster.jpg"})
         const tng = await createProduct({title:'The Nice Guys', description:'',price:23.00,quantity:23,imageUrl:"https://m.media-amazon.com/images/M/MV5BODNlNmU4MGItMzQwZi00NGQyLWEyZWItYjFkNmI0NWI4NjBhXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg"})
         const ttb = await createProduct({title:'Train to busan',description:'',price:90.00,quantity:890,imageUrl:"https://flxt.tmsimg.com/assets/p13070850_p_v8_ay.jpg"})
-
+        
         console.log(scottPilgrim,akira, jackieBrown,theOutsiders,theSilenceOfLambs,alienET,westSideStory,littleWomen,ladyOnFire,blackSwan)
 
 
