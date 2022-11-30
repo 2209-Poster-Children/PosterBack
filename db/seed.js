@@ -1,9 +1,12 @@
 const{client} = require('./index');
 const{createUser, getAllUsers, createAdminUser} = require('./users');
-const{createProduct, getProductById, getAllProducts, getProductByTitle} = require('./products');
+const{createProduct, getProductById, 
+    getAllProducts, getProductByTitle} = require('./products');
 const { createAddress } = require('./address');
-const { createCart,getCartsByUserId, getActiveCartByUserId } = require('./cart');
-const{addItemToCartDetails,getCartDetailsByCart,addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
+const { createCart, getCartsByUserId, 
+    getActiveCartByUserId, deleteCart,totalPricer } = require('./cart');
+const{addItemToCartDetails,getCartDetailsByCart,
+     addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
 const { createReview } = require('./reviews');
 
 
@@ -22,7 +25,7 @@ async function createTables(){
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
-            price NUMERIC,
+            price NUMERIC(10,2),
             quantity INTEGER,
             "imageUrl" VARCHAR(500),
             "imageAlt" VARCHAR(255) default 'poster'
@@ -103,11 +106,10 @@ async function createInitialUsers(){
         const johnCena= await createUser({username:'theChampIShere',password:'youcantseeme'})
         const canadian = await createUser({username:'Aiye',password:'ithinkthatshowsyouspellit'})
         const ettt = await createUser({username:'alien001',password:'E.tttttttt'})
-
-        const ian = await createAdminUser({username:'Ian',password:'NoctisLuciusK1ng!',isAdmin:true})
-        const madi = await createAdminUser({username:'Madi',password:'ThisIsMadisPassword',isAdmin:true})
-        const drew = await createAdminUser({username:'Drewford',password:'Drewford',isAdmin:true})
-        const yeisi = await createAdminUser({username:'Yeisi',password:'IansPassword',isAdmin:true});
+        const ian = await createAdminUser({username:'Ian',password:'NoctisLuciusK1ng!'})
+        const madi = await createAdminUser({username:'Madi',password:'ThisIsMadisPassword'})
+        const drew = await createAdminUser({username:'Drewford',password:'Drewford'})
+        const yeisi = await createAdminUser({username:'Yeisi',password:'IansPassword'});
 
         console.log(shakira,cantinflas,ke$ha);
         console.log("success creating users!")
@@ -120,7 +122,7 @@ async function createInitialProducts(){
     try{
         console.log('creating initial products');
         const scottPilgrim = await createProduct({title:'Scott Pilgrim',description:'Why is he dressed like a pirate?',price:20.00,quantity:300, imageUrl:"https://m.media-amazon.com/images/I/51FrvGUJD3L._AC_SY580_.jpg"})
-        const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:20.00, quantity:1000,imageUrl:"https://ih1.redbubble.net/image.1024303529.4101/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",imageAlt:"A teenager walks towards a motorcycle and there's lots of red"})
+        const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:19.99, quantity:1000,imageUrl:"https://ih1.redbubble.net/image.1024303529.4101/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",imageAlt:"A teenager walks towards a motorcycle and there's lots of red"})
         const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:"https://files.slack.com/files-pri/T024FPYBQ-F04DGQRFWCQ/image.png"})
         const theOutsiders = await createProduct({title:'The Outsiders', description:'Tom Cruise in his first role', price:50.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg'});
         const theSilenceOfLambs = await createProduct({ title:'The Silence of The Lambs',description:'disturbing Old Man eats people ',price:20, quantity:10,imageUrl:'https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg'})
@@ -163,24 +165,24 @@ async function createInitialAddress(){
 async function createInitialCart(){
     console.log("creating initial cart...")
     try{
-        const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:0})
-        const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:0})
-        const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
+        // const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:0})
+        // const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:0})
+        // const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
         const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
         const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
         const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
         const madi =await createCart({userId:5,isActive:true,totalPrice:0});
         const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
-        const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
-        const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
-        const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
-        const katyP = await createCart({ userId:10,isActive:true,totalPrice:0})
-        const donkayyy = await createCart({userId:11, isActive:true,totalPrice:0})
-        const madonna = await createCart({userId:12, isActive:true,totalPrice:0})
-        const gwenS =await createCart({userId:13,isActive:true,totalPrice:0})
-        const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
-        const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
-        const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
+        // const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
+        // const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
+        // const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
+        // const katyP = await createCart({ userId:10,isActive:true,totalPrice:0})
+        // const donkayyy = await createCart({userId:11, isActive:true,totalPrice:0})
+        // const madonna = await createCart({userId:12, isActive:true,totalPrice:0})
+        // const gwenS =await createCart({userId:13,isActive:true,totalPrice:0})
+        // const cheapSkate= await createCart({userId:14,isActive:true,totalPrice:0})
+        // const canadian = await createCart({userId:16,isActive:true,totalPrice:0})
+        // const ettt = await createCart({userId:17,isActive:true,totalPrice:0})
 
     } catch(error){
         console.log(error);
@@ -188,13 +190,13 @@ async function createInitialCart(){
 }
 
 async function createInitialCartDetails() {
-    const IansCartDetailsOne =await addItemToCartDetails({cartId:4, productId:2, quantity:2})
-    const IansCartDetailsTwo =await addItemToCartDetails({cartId:4,productId:20,quantity:1})
-    const donkayyyCartDetailsOne =await addItemToCartDetails({cartId:6,productId:15, quantity:5})
-    const shrekCartDetails = await addItemToCartDetails({cartId:7,productId:9,quantity:7})
-    const donkayyyCartDetailstwo =await addItemToCartDetails({cartId:8,productId:15,quantity:90})
-    const princeCharming =await addItemToCartDetails({cartId:8,productId:5,quantity:7})
-    const fairyGodMom =await addItemToCartDetails({ cartId:8,productId:12,quantity:10})
+    const IansCartDetailsOne =await addItemToCartDetails({cartId:14, productId:2, quantity:2})
+    const IansCartDetailsTwo =await addItemToCartDetails({cartId:14,productId:20,quantity:1})
+    const donkayyyCartDetailsOne =await addItemToCartDetails({cartId:16,productId:15, quantity:5})
+    const shrekCartDetails = await addItemToCartDetails({cartId:17,productId:9,quantity:7})
+    const donkayyyCartDetailstwo =await addItemToCartDetails({cartId:18,productId:15,quantity:90})
+    const princeCharming =await addItemToCartDetails({cartId:18,productId:5,quantity:7})
+    const fairyGodMom =await addItemToCartDetails({ cartId:18,productId:12,quantity:10})
 }
 
 
@@ -231,9 +233,11 @@ async function testDB(){
         // await getProductByTitle('Scott Pilgrim');
         // await getCartsByUserId(4);
         // await getActiveCartByUserId(4);
-        await getCartDetailsByCart(4);
+        // await getCartDetailsByCart(4);
         // await removeItemFromCartDetails(2);
-        await addQuantityToCart(4,2,3);
+        // await addQuantityToCart(4,2,3);
+        // await deleteCart(8);
+        // await totalPricer(4);
 }
 
 async function rebuildDB(){

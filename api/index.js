@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
 // set 'req.user' if possible
+// USE /api/
 apiRouter.use(async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
@@ -37,11 +38,11 @@ apiRouter.use(async (req, res, next) => {
         }
 });
 
-
 apiRouter.use('/',async(req,res,next)=>{
     console.log("api routers up");
     next()
 });
+
 
 const usersRouter=require('./users')
 apiRouter.use('/users',usersRouter)
@@ -51,8 +52,8 @@ const reviewsRouter = require('./reviews')
 apiRouter.use('/reviews',reviewsRouter)
 const addressRouter = require('./address')
 apiRouter.use('/address',addressRouter );
-// const cartRouter = require('./cart');
-// apiRouter.use('/cart',cartRouter);
+const cartRouter = require('./cart');
+apiRouter.use('/cart',cartRouter);
 
 // Error handling
 apiRouter.use((error, req, res, next) => {
