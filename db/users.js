@@ -43,10 +43,10 @@ async function createUser({
 // this password should run seed side only (as far as we're working anyway) and does the same as create user but assigns admin as well.
 async function createAdminUser({
     username,
-    password,
-    isAdmin
+    password
 }){
     try{
+        const isAdmin = true
         password = await generateHashedValue(password);
         const{ rows: [ user ] } = await client.query(`
         INSERT INTO users(username, password,"isAdmin")

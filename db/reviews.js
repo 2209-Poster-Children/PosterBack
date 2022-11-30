@@ -20,12 +20,12 @@ async function createReview({
 }
 
 //this should return a review by id from the table... maybe we should get review by userId or productId
-async function getAllReviewsById(id){
+async function getAllReviewsById(userId){
   try{
     const {rows} = await client.query(`
       SELECT * FROM reviews 
-      WHERE id = $1
-      `,[id])
+      WHERE "userId" = $1
+      `,[userId])
     return rows;
   }catch(error){
     console.log(error)

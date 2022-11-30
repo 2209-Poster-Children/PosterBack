@@ -95,12 +95,12 @@ async function getProductPrice(id){
 
 async function deleteProduct(id){
     try {
-      await client.query(`
+      const rows = await client.query(`
         DELETE FROM products
         WHERE id=$1
         RETURNING *;
         `, [id]);
-    return id, "product has been removed";
+    return rows, "product has been removed";
     } catch (error) {
       console.log(error);
     }
