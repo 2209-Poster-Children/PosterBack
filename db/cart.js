@@ -4,42 +4,44 @@ const { client } = require(".")
 async function createCart({
     userId, isActive,totalPrice 
 }){
-    console.log("lets make a cart");
+    // console.log("lets make a cart");// it's always going to be active unless in the seed
     try{
     const{rows: [cart]} = await client.query(`
         INSERT INTO cart("userId", "isActive", "totalPrice")
         VALUES ($1,$2,$3)
         RETURNING *;
         `,[userId, isActive, totalPrice]);
-        console.log( cart, "has been created");
+        // console.log( cart, "has been created");
         return cart;
     } catch(error){
         console.log(error)
     }
 }
 
+//all carts, open and closed(maybe I should just make a closed instead of a dual one)
 async function getCartsByUserId(userId){
-  console.log("getting carts by user id" , userId)
+  // console.log("getting carts by user id" , userId)
   try{
     const{rows} =await client.query(`
     SELECT * FROM cart
     WHERE "userId" =$1;`
     ,[userId]);
-    console.log(rows)
+    // console.log(rows)
     return rows
   }catch(error){
     console.log(error)
   }
 }
 
+//users should only have 1 active cart, am going to write code that guaruntees that... currently this gets the carts active by user
 async function getActiveCartByUserId(userId){
-  console.log("getting Active cart by user id" , userId)
+  // console.log("getting Active cart by user id" , userId)
   try{
     const{rows: [cart]} =await client.query(`
     SELECT * FROM cart
     WHERE  "isActive" = true AND "userId" =$1;`
     ,[userId]);
-    console.log(cart);
+    // console.log(cart);
     return cart
   }catch(error){
     console.log(error)
@@ -47,7 +49,7 @@ async function getActiveCartByUserId(userId){
 }
 
 //this baby changes the total price of the cartId every time
-//a value in cart details changes.
+//a value in cartDetails changes.
 async function totalPricer(cartId){
   try{
     const {rows} = await client.query(`
@@ -56,6 +58,7 @@ async function totalPricer(cartId){
       ,[cartId])
 
     let total= 0;
+    //This attempts to force the total into a structure but PSQL hates us. so it's a string
     rows.map((subtotalKey,idx)=>{
       total+= +parseFloat(subtotalKey.subtotal);
     })
@@ -66,7 +69,6 @@ async function totalPricer(cartId){
       RETURNING *
       `,[finalTotal,cartId])
 
-  
     return newCart;
     
   } catch(error){
@@ -74,6 +76,7 @@ async function totalPricer(cartId){
   }
 }
 
+//this should delete all of the info inside a cart (but leave the cart in-tact)
 async function obliterateAllCartDetails(cartId){
   try{
     
@@ -88,6 +91,8 @@ async function obliterateAllCartDetails(cartId){
   }
 }
 
+//this actually deletes a cart. You never really want to do this
+//(as an active cart can always be reset and used for a different shopping spree.)
 async function deleteCart(id){
     try {
       const obliterate = await obliterateAllCartDetails(id);

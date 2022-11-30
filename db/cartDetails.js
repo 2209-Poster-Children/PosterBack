@@ -2,18 +2,20 @@ const {client}= require ('.')
 const { totalPricer } = require('./cart')
 const {getProductPrice}=require('./products')
 
+//this is where all my code gets more complex, feel free to message me for help if you're trying to change it
+// but I'm putting notes everywhere now.
 async function addItemToCartDetails({cartId,productId,quantity}){
-    try{
+    try{// assigning subtotal from price and quantity put in
         const {price} = await getProductPrice(productId)
         const subtotal= price*quantity
 
-        console.log(subtotal,'this is sub')
+        // console.log(subtotal,'this is sub')
         const {rows:[cartDetails]}=await client.query(`
             INSERT INTO "cartDetails"("cartId","productId",quantity,subtotal)
             VALUES ($1,$2,$3,$4)
             RETURNING *;
             `, [cartId,productId,quantity,subtotal])
-        console.log(cartDetails)
+        // console.log(cartDetails)
         //set totalPrice on Cart
         const newPrice = await totalPricer(cartId);
         return cartDetails
@@ -23,7 +25,7 @@ async function addItemToCartDetails({cartId,productId,quantity}){
 }
 
 async function removeItemFromCartDetails(productId,cartId){
-    try{
+    try{ //this should remove just 1 item from cart details 
         const itemRemove = await client.query(`
             DELETE FROM "cartDetails" WHERE
             "productId"=$1 AND "cartId" = $2`
@@ -38,7 +40,7 @@ async function removeItemFromCartDetails(productId,cartId){
 }
 
 async function getCartDetailsByCart(cartId){
-    //talk to the team about the join query
+    //talk to the team about the omega join query
     try{
         const {rows} = await client.query(`
         SELECT cart.id AS "cartId", 
@@ -64,7 +66,7 @@ async function getCartDetailsByCart(cartId){
         WHERE "cartDetails"."cartId" = $1
         GROUP BY cart.id, "cartDetails"."cartId";
         `,[cartId])
-        console.log(rows);
+        // console.log(rows);
         return rows;
         
     }catch(error){

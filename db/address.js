@@ -1,6 +1,7 @@
 const { client } = require(".")
 const {getUserByUsername} = require('./users')
 
+//if no id then complain else return (all) addresses.
 async function getAllAddressByUserId(id) {
   try {
     if (!id) {
@@ -21,10 +22,11 @@ async function getAllAddressByUserId(id) {
   }
 }
 
+// one must assume the most recently created address is the active one.
 async function createAddress({
   address, zipcode, state, city, userId
 }){
-  console.log('lets make some address');
+  // console.log('lets make some address');
   
 
   try {
@@ -33,14 +35,13 @@ async function createAddress({
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *;
     `, [address, zipcode, state, city, userId]);
-    console.log(addressl, "(address) has been created");
+    // console.log(addressl, "(address) has been created");
     return addressl;
   } catch (error) {
     console.log(error);
   } 
 }
 // get address by user id active address 
-
 
 module.exports={
   createAddress,
