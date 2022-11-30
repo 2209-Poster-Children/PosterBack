@@ -105,7 +105,7 @@ async function createInitialUsers(){
         const ettt = await createUser({username:'alien001',password:'E.tttttttt'})
 
         const ian = await createAdminUser({username:'Ian',password:'NoctisLuciusK1ng!',isAdmin:true})
-        const madi = await createAdminUser({username:'Madi',password:'ThisIsMadisPassword',isAdmin:true})
+        const madi = await createAdminUser({username:'Madi',password:'spiderman',isAdmin:true})
         const drew = await createAdminUser({username:'Drewford',password:'Drewford',isAdmin:true})
         const yeisi = await createAdminUser({username:'Yeisi',password:'IansPassword',isAdmin:true});
 
