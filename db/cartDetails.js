@@ -1,6 +1,6 @@
 const {client}= require ('.')
 const { totalPricer } = require('./cart')
-const {getProductPrice}=require('./products')
+const { getProductPrice }=require('./products')
 
 //this is where all my code gets more complex, feel free to message me for help if you're trying to change it
 // but I'm putting notes everywhere now.
