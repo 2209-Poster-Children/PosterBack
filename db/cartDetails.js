@@ -24,6 +24,43 @@ async function addItemToCartDetails({cartId,productId,quantity}){
     }
 }
 
+// grab all carts 
+async function getAllCartsUserId(cartId){
+    //talk to the team about the omega join query
+    try{
+        const {rows} = await client.query(`
+        SELECT cart.id AS "cartId", 
+        cart."totalPrice",
+        CASE WHEN "cartDetails"."cartId" IS NULL THEN '[]'::json
+        ELSE
+        JSON_AGG(
+            JSON_BUILD_OBJECT(
+                'productId', products.id,
+                'title', products.title,
+                'price', products.price,
+                'quantity', "cartDetails".quantity,
+                'imageUrl', products."imageUrl",
+                'imageAlt', products."imageAlt",
+                'subtotal', "cartDetails".subtotal
+            )
+        ) END AS products
+        FROM cart
+        LEFT JOIN "cartDetails" 
+            ON cart.id = "cartDetails"."cartId"
+        LEFT JOIN "products"
+            ON products.id = "cartDetails"."productId"
+        WHERE "cartDetails"."cartId" = $1
+        GROUP BY cart.id, "cartDetails"."cartId";
+        `,[cartId])
+        // console.log(rows);
+        return rows;
+        
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
 async function removeItemFromCartDetails(productId,cartId){
     try{ //this should remove just 1 item from cart details 
         const itemRemove = await client.query(`
