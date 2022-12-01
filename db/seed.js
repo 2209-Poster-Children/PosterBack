@@ -184,7 +184,7 @@ async function createInitialCart(){
         const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
         const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
         const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
-        const madi =await createCart({userId:5,isActive:true,totalPrice:0};
+        const madi =await createCart({userId:5,isActive:true,totalPrice:0});
         // const jennaA=await createCart({userId:6,isActive:true,totalPrice:0});
 
         // const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
