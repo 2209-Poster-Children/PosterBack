@@ -51,6 +51,7 @@ async function createTables(){
             quantity INTEGER,
             subtotal NUMERIC,
             "priceBoughtAt" NUMERIC DEFAULT 0
+            UNIQUE ("cartId","productId")
         );
         CREATE TABLE reviews(
             id SERIAL PRIMARY KEY,
