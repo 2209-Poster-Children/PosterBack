@@ -50,7 +50,7 @@ async function createTables(){
             "productId" INTEGER REFERENCES products(id),
             quantity INTEGER,
             subtotal NUMERIC,
-            "priceBoughtAt" NUMERIC DEFAULT 0
+            "priceBoughtAt" NUMERIC DEFAULT 0,
             UNIQUE ("cartId","productId")
         );
         CREATE TABLE reviews(
