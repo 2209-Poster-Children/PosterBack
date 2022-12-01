@@ -25,7 +25,7 @@ async function addItemToCartDetails({cartId,productId,quantity}){
 }
 
 // grab all carts 
-async function getAllCartsUserId(cartId){
+async function getAllCartsUserId(userId){
     //talk to the team about the omega join query
     try{
         const {rows} = await client.query(`
@@ -49,7 +49,7 @@ async function getAllCartsUserId(cartId){
             ON cart.id = "cartDetails"."cartId"
         LEFT JOIN "products"
             ON products.id = "cartDetails"."productId"
-        WHERE "cartDetails"."cartId" = $1
+        WHERE cart."userId" = $1 AND cart."isActive" = false
         GROUP BY cart.id, "cartDetails"."cartId";
         `,[cartId])
         // console.log(rows);
@@ -136,5 +136,6 @@ module.exports= {
     addItemToCartDetails, 
     getCartDetailsByCart,
     removeItemFromCartDetails,
-    addQuantityToCart
+    addQuantityToCart,
+    getAllCartsUserId
 }
