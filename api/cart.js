@@ -35,9 +35,10 @@ cartRouter.get('/allcart/',requireUser, async(req,res,next)=>{
 // POST /api/cart
 cartRouter.post('/',requireUser, async(req,res,next)=>{
     try{
-        const {id} = await getActiveCartByUserId(req.user.id)
+        const {cartId} = await getActiveCartByUserId(req.user.id)
+        console.log(cartId);
         const {productId, quantity}= req.body
-        const cartAdd = await addItemToCartDetails({id,productId,quantity})
+        const cartAdd = await addItemToCartDetails({cartId,productId,quantity})
 
         res.send(cartAdd);
     }catch({name,message}){

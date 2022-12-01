@@ -64,9 +64,9 @@ async function getActiveCartByUserId(userId){
     console.log(cart);
     return cart;
     
-}catch(error){
-    console.log(error)
-}
+  }catch(error){
+      console.log(error)
+  }
 }
 
 //this baby changes the total price of the cartId every time
