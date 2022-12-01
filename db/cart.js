@@ -37,7 +37,7 @@ async function getCartsByUserId(userId){
 async function getActiveCartByUserId(userId){
   // console.log("getting Active cart by user id" , userId)
   try{
-    const {rows} = await client.query(`
+    const {rows: [cart]} = await client.query(`
     SELECT cart.id AS "cartId", 
     cart."totalPrice",
     CASE WHEN "cartDetails"."cartId" IS NULL THEN '[]'::json
@@ -58,11 +58,11 @@ async function getActiveCartByUserId(userId){
         ON cart.id = "cartDetails"."cartId"
     LEFT JOIN "products"
         ON products.id = "cartDetails"."productId"
-    WHERE cart."userId" = $1 AND cart."isActive" = true;
+    WHERE cart."userId" = $1 AND cart."isActive" = true
     GROUP BY cart.id, "cartDetails"."cartId";
     `,[userId])
-    // console.log(rows);
-    return rows;
+    console.log(cart);
+    return cart;
     
 }catch(error){
     console.log(error)
