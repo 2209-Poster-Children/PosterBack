@@ -19,19 +19,19 @@ async function createCart({
 }
 
 //all carts, open and closed(maybe I should just make a closed instead of a dual one)
-async function getCartsByUserId(userId){
-  // console.log("getting carts by user id" , userId)
-  try{
-    const{rows} =await client.query(`
-    SELECT * FROM cart
-    WHERE "userId" =$1;`
-    ,[userId]);
-    // console.log(rows)
-    return rows
-  }catch(error){
-    console.log(error)
-  }
-}
+// async function getCartsByUserId(userId){
+//   // console.log("getting carts by user id" , userId)
+//   try{
+//     const{rows} =await client.query(`
+//     SELECT * FROM cart
+//     WHERE "userId" =$1;`
+//     ,[userId]);
+//     // console.log(rows)
+//     return rows
+//   }catch(error){
+//     console.log(error)
+//   }
+// }
 
 //users should only have 1 active cart, am going to write code that guaruntees that... currently this gets the carts active by user
 async function getActiveCartByUserId(userId){
@@ -64,9 +64,9 @@ async function getActiveCartByUserId(userId){
     console.log(cart);
     return cart;
     
-}catch(error){
-    console.log(error)
-}
+  }catch(error){
+      console.log(error)
+  }
 }
 
 //this baby changes the total price of the cartId every time
@@ -132,7 +132,7 @@ async function deleteCart(id){
 module.exports={
     createCart,
     deleteCart,
-    getCartsByUserId,
+    // getCartsByUserId,
     getActiveCartByUserId,
     obliterateAllCartDetails,
     totalPricer

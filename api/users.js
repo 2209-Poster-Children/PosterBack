@@ -1,11 +1,12 @@
 const express=require('express')
 const {getAllUsers, createUser, getUser, getUserByUsername}=require ('../db/users')
-const {getActiveCartByUserId, getCartsByUserId} = require('../db/cart');
+const {getActiveCartByUserId} = require('../db/cart');
 const { getAllAddressByUserId } = require('../db/address');
 const { getAllReviewsById } = require('../db/reviews');
 const {requireUser} = require('./utils');
-const usersRouter=express.Router()
+const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
+const { getAllCartsUserId } = require('../db/cartDetails');
 const {JWT_SECRET} =process.env;
 
 // delete this b4 exporting the client 
@@ -106,7 +107,7 @@ usersRouter.get('/me',requireUser, async(req, res, next) => {
       const user = await getUserByUsername(req.user.username);
       const addresses = await getAllAddressByUserId(user.id);
       const activeCart = await getActiveCartByUserId(user.id);
-      const allCarts = await getCartsByUserId(user.id);
+      const allCarts = await getAllCartsUserId(user.id);
       const reviews = await getAllReviewsById(user.id);
       res.send({ user, addresses, activeCart, allCarts, reviews });
 
