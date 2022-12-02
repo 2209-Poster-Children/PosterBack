@@ -10,11 +10,10 @@ const {getCartDetailsByCart, addItemToCartDetails, addQuantityToCart, removeItem
 // GET /api/cart
 cartRouter.get('/',requireUser, async(req,res,next)=>{
     try{
-
-        const {id} = await getActiveCartByUserId(req.user.id)
-        const userCart = await getCartDetailsByCart(id)
+        const cart = await getActiveCartByUserId(req.user.id)
+        console.log(cart);
         //ya'll are not ready for this sick obj I'm about to give you.
-        res.send(userCart)
+        res.send(cart)
 
     }catch ({ name, message}){
         next({ name, message })
