@@ -42,6 +42,10 @@ async function createAddress({
 }
 // get address by user id active address 
 
+
+// async function updateAddress
+// async function deleteAddress
+
 module.exports={
   createAddress,
   getAllAddressByUserId

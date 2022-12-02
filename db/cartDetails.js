@@ -2,8 +2,9 @@ const {client}= require ('.')
 const { totalPricer } = require('./cart')
 const { getProductPrice }=require('./products')
 
-//this is where all my code gets more complex, feel free to message me for help if you're trying to change it
-// but I'm putting notes everywhere now.
+// This is where all my code gets more complex, feel free to message me for help if you're trying to change it
+// but I'm putting notes everywhere now. // I need to add a quantity if statement based on items already in the cart.
+// Otherwise we're infinitely looping.
 async function addItemToCartDetails({cartId,productId,quantity}){
     try{// assigning subtotal from price and quantity put in
         const {price} = await getProductPrice(productId)
@@ -16,7 +17,7 @@ async function addItemToCartDetails({cartId,productId,quantity}){
             RETURNING *;
             `, [cartId,productId,quantity,subtotal])
         // console.log(cartDetails)
-        //set totalPrice on Cart
+        // set totalPrice on Cart
         const newPrice = await totalPricer(cartId);
         return cartDetails
     }catch(error){
