@@ -3,7 +3,7 @@ const { getActiveCartByUserId, getCartsByUserId } = require('../db/cart');
 const cartRouter = express.Router();
 const {requireUser} = require('./utils');
 const {getCartDetailsByCart, addItemToCartDetails, addQuantityToCart, removeItemFromCartDetails} = require('../db/cartDetails');
-const  cors = require("cors");
+
 
 // I need to write prohibitive code that only allows users of carts to act upon their own carts.. 
 // also guest cart permissions, thinking about that one as well, changing a guest cart to a user cart when they register.
@@ -48,8 +48,7 @@ cartRouter.post('/',requireUser, async(req,res,next)=>{
 
 
 //PATCH /api/cart    change quantity of item
-cartRouter.options('/',cors())
-cartRouter.patch('/',cors(),requireUser, async(req,res,next)=>{
+cartRouter.patch('/',requireUser, async(req,res,next)=>{
     try{
         const {id} = await getActiveCartByUserId(req.user.id)
         const {productId,quantity} = req.body

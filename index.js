@@ -3,18 +3,8 @@ require ('dotenv').config()
 const morgan=require ('morgan');
 const cors = require("cors")
 const app= express();
-app.use(cors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-  }));
-app.options("*",cors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-  }))
+const corsOptions = {allowedHeaders: ["Content-Type","Authorization"]}
+app.use(cors(corsOptions));
 app.use(express.urlencoded ({extended:false}));
 app.use(morgan('dev'));
 app.use(express.json());
