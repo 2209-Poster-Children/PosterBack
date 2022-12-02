@@ -50,9 +50,10 @@ cartRouter.post('/',requireUser, async(req,res,next)=>{
 //PATCH /api/cart    change quantity of item
 cartRouter.patch('/',requireUser, async(req,res,next)=>{
     try{
-        const {id} = await getActiveCartByUserId(req.user.id)
+        const {cartId} = await getActiveCartByUserId(req.user.id)
+        console.log(cartId)
         const {productId,quantity} = req.body
-        const cartQuantity = await addQuantityToCart(id,productId,quantity)
+        const cartQuantity = await addQuantityToCart(cartId,productId,quantity)
 
         res.send(cartQuantity)
     }catch({name,message}){
