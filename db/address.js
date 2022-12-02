@@ -9,8 +9,7 @@ async function getAllAddressByUserId(id) {
       return null;
     }
     const { rows } = await client.query(`
-      SELECT *
-      FROM address
+      SELECT * FROM address
       WHERE id=$1;
       `, [id])
     
@@ -42,6 +41,10 @@ async function createAddress({
   } 
 }
 // get address by user id active address 
+
+
+// async function updateAddress
+// async function deleteAddress
 
 module.exports={
   createAddress,

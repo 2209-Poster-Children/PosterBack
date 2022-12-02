@@ -50,7 +50,8 @@ async function createTables(){
             "productId" INTEGER REFERENCES products(id),
             quantity INTEGER,
             subtotal NUMERIC,
-            "priceBoughtAt" NUMERIC DEFAULT 0
+            "priceBoughtAt" NUMERIC DEFAULT 0,
+            UNIQUE ("cartId","productId")
         );
         CREATE TABLE reviews(
             id SERIAL PRIMARY KEY,
@@ -124,7 +125,7 @@ async function createInitialProducts(){
         console.log('creating initial products');
         const scottPilgrim = await createProduct({title:'Scott Pilgrim',description:'Why is he dressed like a pirate?',price:20.00,quantity:300, imageUrl:"https://m.media-amazon.com/images/I/51FrvGUJD3L._AC_SY580_.jpg"})
         const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:19.99, quantity:1000,imageUrl:"https://ih1.redbubble.net/image.1024303529.4101/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",imageAlt:"A teenager walks towards a motorcycle and there's lots of red"})
-        const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:"https://files.slack.com/files-pri/T024FPYBQ-F04DGQRFWCQ/image.png"})
+        const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:"https://imgur.com/wGba0fZ"})
         const theOutsiders = await createProduct({title:'The Outsiders', description:'Tom Cruise in his first role', price:50.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg'});
         const theSilenceOfLambs = await createProduct({ title:'The Silence of The Lambs',description:'disturbing Old Man eats people ',price:20, quantity:10,imageUrl:'https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg'})
         const alienET = await createProduct({ title:'E.T',description:' EEEEE.TTTTTT ',price:20.00,quantity:10, imageUrl:'https://i.pinimg.com/474x/f6/23/07/f623079bcc02b49ab9a839b239c81b9d.jpg' })
@@ -196,11 +197,12 @@ async function createInitialCart(){
         // const shakiraCart = await   createCart({userId:1,isActive:false,totalPrice:0})
         // const cantinflasCart = await createCart({userId:2,isActive:true,totalPrice:0})
         // const ke$haCart = await createCart({userId:3,isActive:true,totalPrice:0})
-        const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
-        const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
-        const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
-        const madi =await createCart({userId:5,isActive:true,totalPrice:0});
-        const andrewCart=await createCart({userId:6,isActive:true,totalPrice:0});
+        // const ianCart = await createCart({userId:4, isActive:true, totalPrice:0});
+        // const ianCart2 = await createCart({userId:4, isActive:false, totalPrice:0});
+        // const yeisi= await createCart ({userId:7,isActive:true,totalPrice:0});
+        // const madi =await createCart({userId:5,isActive:true,totalPrice:0});
+        // const jennaA=await createCart({userId:6,isActive:true,totalPrice:0});
+
         // const shrekS = await createCart({userId:7,isActive:true,totalPrice:0})
         // const fionaFFA = await createCart({userId:8, isActive:true,totalPrice:0})
         // const jefferyD = await createCart({userId:9,isActive:true, totalPrice:0})
@@ -266,6 +268,7 @@ async function testDB(){
         // await addQuantityToCart(4,2,3);
         // await deleteCart(8);
         // await totalPricer(4);
+        await getActiveCartByUserId(18)
 }
 
 async function rebuildDB(){
