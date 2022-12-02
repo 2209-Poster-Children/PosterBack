@@ -14,6 +14,7 @@ async function addItemToCartDetails({cartId,productId,quantity}){
         const {rows:[cartDetails]}=await client.query(`
             INSERT INTO "cartDetails"("cartId","productId",quantity,subtotal)
             VALUES ($1,$2,$3,$4)
+            ON CONFLICT ("cartId","productId") DO NOTHING
             RETURNING *;
             `, [cartId,productId,quantity,subtotal])
         // console.log(cartDetails)
