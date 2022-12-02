@@ -53,7 +53,7 @@ async function getAllCartsUserId(userId){
             ON products.id = "cartDetails"."productId"
         WHERE cart."userId" = $1 AND cart."isActive" = false
         GROUP BY cart.id, "cartDetails"."cartId";
-        `,[cartId])
+        `,[userId])
         // console.log(rows);
         return rows;
         
