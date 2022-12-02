@@ -3,7 +3,7 @@ require ('dotenv').config()
 const morgan=require ('morgan');
 const cors = require("cors")
 const app= express();
-app.use(cors({methods: "PATCH,GET,POST,DELETE,PUT,HEAD"}))
+app.options("*",cors())
 app.use(express.urlencoded ({extended:false}));
 app.use(morgan('dev'));
 app.use(express.json());
