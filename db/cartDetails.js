@@ -126,6 +126,7 @@ async function addQuantityToCart(cartId, productId, quantity){
             `,[quantity,subtotal,productId,cartId])
         //set totalPrice on cart
         const newPrice = totalPricer(cartId);
+        console.log(rows);
         return rows
     }catch(error){
         console.log(error);
