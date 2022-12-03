@@ -170,7 +170,7 @@ async function createInitialProducts(){
         // const hg = createProduct({title:'Hermanos Gutierrez',description:'REALISMO MAGICO TOUR',price:23.00,quantity:90,imageUrl:'https://files.slack.com/files-tmb/T024FPYBQ-F04DKQYND50-0251fe0bbf/image_720.png'})
         // const durand = createProduct({title:'The Indications',description:'U.S TOUR 2020',price:12.00,quantity:90,imageUrl:'https://files.slack.com/files-pri/T024FPYBQ-F04DD7LH04W/image.png'})
         // const nina = createProduct({title:'Nina Samone',description:'The AMAAZING NINA SAMONE',price:78.00,quantity:56,imageUrl:'https://files.slack.com/files-tmb/T024FPYBQ-F04DKN70H8T-bb1ceda193/image_720.png'})
-        console.log(scottPilgrim,akira, jackieBrown,theOutsiders,theSilenceOfLambs,alienET,westSideStory,littleWomen,ladyOnFire,blackSwan)
+        console.log(scottPilgrim,akira,theOutsiders,theSilenceOfLambs,alienET,westSideStory,littleWomen,ladyOnFire,blackSwan)
 
 
     } catch(error){
