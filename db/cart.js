@@ -128,12 +128,40 @@ async function deleteCart(id){
       console.log(error);
     }
 }
- 
+
+//this one will be the big code.
+async function purchaseCart(cartId,userId){
+  try{
+    //three calls function, needs cartId, userId
+    //assign totalPrice per cart detail (current subtotal )
+    const {rows} = await client.query(`
+      UPDATE "cartDetails" SET "priceBoughtAt" = subtotal
+      RETURNING*;
+      `)
+      console.log("shows" , rows);
+    // assign cart to false (rows to rows2 renames the destructured rows to avoid conflicts)
+    const {rows: rows2} = await client.query(`
+      UPDATE cart SET "isActive" = false
+      WHERE id =$1
+      RETURNING *;
+    `,[cartId]);
+      console.log("hunh", rows2);
+
+    // create a new cart based on user 
+    const newCart = await createCart({userId,isActive:true,totalPrice:0})
+      console.log(newCart);
+    return rows, rows2
+  }catch(error){
+    console.log(error)
+  }
+}
+
 module.exports={
     createCart,
     deleteCart,
     // getCartsByUserId,
     getActiveCartByUserId,
     obliterateAllCartDetails,
-    totalPricer
+    totalPricer,
+    purchaseCart
 }
