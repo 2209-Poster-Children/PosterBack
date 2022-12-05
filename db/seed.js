@@ -269,8 +269,8 @@ async function testDB(){
         // await addQuantityToCart(4,2,3);
         // await deleteCart(8);
         // await totalPricer(4);
-        // await getActiveCartByUserId(18)
-        // await purchaseCart(18,18)
+        await getActiveCartByUserId(18)
+        await purchaseCart(18,18)
 }
 
 async function rebuildDB(){

@@ -136,8 +136,9 @@ async function purchaseCart(cartId,userId){
     //assign totalPrice per cart detail (current subtotal )
     const {rows} = await client.query(`
       UPDATE "cartDetails" SET "priceBoughtAt" = subtotal
+      WHERE "cartId" = $1
       RETURNING*;
-      `)
+      `,[cartId])
       console.log("shows" , rows);
     // assign cart to false (rows to rows2 renames the destructured rows to avoid conflicts)
     const {rows: rows2} = await client.query(`
