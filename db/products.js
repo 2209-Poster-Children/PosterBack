@@ -59,8 +59,10 @@ async function getAllProducts(){
     console.log("getting all products")
     try{
         const{rows} = await client.query(`
-            SELECT * FROM products;
+            SELECT categories.name AS "categoryName", products.* FROM products
+            LEFT JOIN categories ON categories.id = products."categoryId";
             `);
+        
         console.log(rows);
         return rows; 
     }catch(error){
