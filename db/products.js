@@ -49,11 +49,13 @@ async function getProductById(id){
     }
 }
 
-async function getAllProducts(){
+async function getAllProducts(page, count){
     console.log("getting all products")
     try{
+        const offset = count*(page-1);
         const{rows} = await client.query(`
-        SELECT * FROM products;
+        SELECT * FROM products
+        LIMIT $1 OFFSET $2;
         `);
         console.log(rows);
         return rows; 
