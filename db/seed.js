@@ -9,6 +9,7 @@ const {createCart, getCartsByUserId,
 const {addItemToCartDetails,getCartDetailsByCart,
        addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
 const {createReview} = require('./reviews');
+const { createCategory } = require('./categories');
 
 
 async function createTables(){
@@ -22,6 +23,10 @@ async function createTables(){
             password VARCHAR(255),
             "isAdmin" BOOLEAN default false
         );
+        CREATE TABLE categories(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(200) UNIQUE NOT NULL
+        );
         CREATE TABLE products(
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) UNIQUE NOT NULL,
@@ -29,7 +34,8 @@ async function createTables(){
             price NUMERIC(10,2),
             quantity INTEGER,
             "imageUrl" VARCHAR(500),
-            "imageAlt" VARCHAR(255) default 'poster'
+            "imageAlt" VARCHAR(255) default 'poster',
+            "categoryId" INTEGER REFERENCES categories(id)
         );
         CREATE TABLE address(
             id SERIAL PRIMARY KEY,
@@ -61,11 +67,7 @@ async function createTables(){
             title VARCHAR(255)UNIQUE NOT NULL,
             description TEXT NOT NULL
         );
-        CREATE TABLE catagories(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(200) UNIQUE NOT NULL,
-            "productId" INTEGER REFERENCES products(id)
-        )`)
+        `)
 
         console.log("...┏━┓┏━┓┏━┓ ︵ /(^.^/) tables successfully created!")
     }catch(error){
@@ -77,11 +79,11 @@ async function dropTables(){
     console.log("(┛◉Д◉)┛彡┻━┻ dropping all tables...")
     try{
         await client.query(`
-        DROP TABLE IF EXISTS catagories;
         DROP TABLE IF EXISTS "cartDetails";
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS categories;
         DROP TABLE IF EXISTS address;
         DROP TABLE IF EXISTS users;
         `)
@@ -90,7 +92,19 @@ async function dropTables(){
         console.log(error)
     }
 }
-
+let movies = "";
+let music
+let videogames
+async function createInitialCategories(){
+    try{
+        movies = await createCategory("movies");
+        music = await createCategory("music");
+        videogames = await createCategory("videogames");
+        console.log("catagory stuff " , movies,music,videogames);
+    }catch(error){
+        console.log(error)
+    }
+}
 async function createInitialUsers(){
     try{
         console.log("≋≋≋≋≋̯̫⌧̯̫(ˆ•̮ ̮•ˆ)creating initial users...")
@@ -124,37 +138,37 @@ async function createInitialUsers(){
 async function createInitialProducts(){
     try{
         console.log('creating initial products');
-        const scottPilgrim = await createProduct({title:'Scott Pilgrim',description:'Why is he dressed like a pirate?',price:20.00,quantity:300, imageUrl:"https://m.media-amazon.com/images/I/51FrvGUJD3L._AC_SY580_.jpg"})
-        const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:19.99, quantity:1000,imageUrl:"https://ih1.redbubble.net/image.1024303529.4101/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",imageAlt:"A teenager walks towards a motorcycle and there's lots of red"})
-        // const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:'https://64.media.tumblr.com/b4d620407729df479ff3c5d4e6a9908c/tumblr_pdgfdrLrpB1s80h8lo1_1280.jpg'})
-        const theOutsiders = await createProduct({title:'The Outsiders', description:'Tom Cruise in his first role', price:50.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg'});
-        const theSilenceOfLambs = await createProduct({ title:'The Silence of The Lambs',description:'disturbing Old Man eats people ',price:20, quantity:10,imageUrl:'https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg'})
-        const alienET = await createProduct({ title:'E.T',description:' EEEEE.TTTTTT ',price:20.00,quantity:10, imageUrl:'https://i.pinimg.com/474x/f6/23/07/f623079bcc02b49ab9a839b239c81b9d.jpg' })
-        const westSideStory = await createProduct({ title:'West Side Story', description:'A rivalry between ethnic backgrounds *Eyeroll* ', price:10.00,quantity:10, imageUrl:'https://i.pinimg.com/564x/83/b2/a0/83b2a0298f4a5c18278aefa9a440ae43.jpg'})
-        const littleWomen = await createProduct({ title:'Little Women',description:'4 sisters',price:25.00,quantity:20, imageUrl:'https://i.pinimg.com/564x/a1/ae/90/a1ae90417b7e8a037ad20b16392ce17e.jpg'})
-        const ladyOnFire = await createProduct({ title: 'Portrait of a Lady On Fire', description:' ouch',price:20.00,quantity:10, imageUrl: 'https://cdn.shopify.com/s/files/1/0275/8351/2681/products/PLF_AkikoPoster_2000x@2x.progressive.jpg?v=1654199751'})
-        const blackSwan =await createProduct({title:'Black Swan',description:'A confusing movie dont watch when a toddler', price:20.00,quantity:10,imageUrl:'https://i.pinimg.com/564x/ce/0c/ff/ce0cff6131d1c7946aa514f7b6748fa2.jpg',imageAlt:"an image of the poster for black swan" })
-        const hereditary =await createProduct({ title:'Hereditary',description:'A WTF kind of movie', price:15.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/89/a6/e0/89a6e080474623cf3bfce05163fac57b.jpg'})
-        const midSommar =await createProduct({ title:'Midsommar',description:'Culty',price:20.00,quantity:15,imageUrl:'https://i.pinimg.com/564x/bb/ab/1c/bbab1ca03a8b81457c02133c4f0a365d.jpg'})
-        const everythingEverywhere = await createProduct({ title: 'Everything Everywhere All At Once', description:'crazy', price:20.00, quantity:15, imageUrl:'https://i.pinimg.com/564x/43/4d/be/434dbe2df3ad3afeccb0011659e978bf.jpg'})
-        const spiderMan = await createProduct({ title:'Spiderman Into The Spiderverse', description:' Miles Morales', price:20.00,quantity:15, imageUrl:'https://i.pinimg.com/564x/c4/b0/b3/c4b0b31635fb0c935271c979f2d3bcf7.jpg'})
-        const wolfOfWalls=await createProduct({ title: 'Wolf Of Wallstreet',description:'self explanatory', price:20.00,quantity:10, imageUrl:'https://i5.walmartimages.com/asr/7eb0cdc8-47a7-406d-ac83-59db69071a17_1.7fc5796fe564d76ad9af069d6cce4a41.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'})
-        const barbarian =await createProduct({ title:'Barbarian', description:'Airbnb nightmare', price:25.00, quantity:15, imageUrl:'https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2022/09/barbarian-art.jpg?ssl=1'})
-        const bleachers =await createProduct({ title:' The Bleachers',description:'Band',price:20.00,quantity:20,imageUrl:'https://i.pinimg.com/564x/04/a0/9c/04a09c7b371408dfb0d617f7a97110cf.jpg'})
-        const arcticMonkeys=await createProduct({title:'Arctic Monkey',description:'Band', price:20.00,quantity:12, imageUrl:'https://i.pinimg.com/564x/22/61/59/226159347177904e4de8779f3c097b7b.jpg'})
-        const szaa=await createProduct({title:'sza', description:'Artist',price:25.00, quantity:10, imageUrl:'https://i.pinimg.com/474x/18/fd/2c/18fd2c38f5cf7d4e124a7c7792e99c41.jpg '})
-        const theWeeknd =await createProduct({title:'The Weeknd', description:'sad- mf',price:25.00,quantity:23, imageUrl:'https://i.pinimg.com/564x/bf/62/bb/bf62bb91015676488c5adda1251d997d.jpg' })
-        const theBookThief = await createProduct({title:'The Book Theif',description:'Leisel,Germany ww2',price:3009,quantity:2013,imageUrl:"https://i.pinimg.com/564x/65/2f/9a/652f9a7c4e9eaa7a0817bf3acd3d3ee2.jpg"})
-        const saveYourselves =await createProduct({title:'Save Yourselves',description:'SAVE YOURSLEF!',price:23.00,quantity:2001,imageUrl:"https://images.squarespace-cdn.com/content/v1/582b5029bebafb10ec217bdf/1615830666374-4U5SQRFJMU12E8F5HCQ4/SaveYourselves_rgb.jpg?format=1500w"})
-        const tampopop = await createProduct({title:'Tampopo',description:'TAMPOPOPOPOOPOP',price:20.00,quantity:5,imageUrl:"https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Tampopo_-_Poster.jpg/220px-Tampopo_-_Poster.jpg"})
-        const fmf = await createProduct({title:'Fantastic Mr.Fox',description:'A FOX?????',price:32.00,quantity:324, imageUrl:"https://www.tvguide.com/a/img/catalog/provider/1/2/1-4493722784.jpg"})
-        const dtrt = await createProduct({title:'Do The Right Thing',description:'WHATS THE WRONG THING',price:23.00,quantitiy:90,imageUrl:"https://product-image.juniqe-production.juniqe.com/media/catalog/product/seo-cache/x800/133/25/133-25-101P/Do-The-Right-Thing-Bruno-Morphet-Poster.jpg"})
-        const waves = await createProduct({title:'Waves',description:'BEACH BEACH ', price:25.00, quantity:454,imageUrl:"https://i.etsystatic.com/18242346/r/il/f89d0a/2130906157/il_1588xN.2130906157_qrxe.jpg"})
-        const stby = await createProduct({title:'Sorry To Bother You',description:'BOTHER ME PLEASEEEE',price:23.00,quantity:234,imageUrl:"https://m.media-amazon.com/images/M/MV5BNjgwMmI4YzUtZGI2Mi00M2MwLWIyMmMtZWYzMWZmNzAyNmYwXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg"})
-        const dmfm = await createProduct ({title:'Dial M for Murder',description:'M.',price:45.00,quantitiy:243,imageUrl:"https://i.ytimg.com/vi/Jl9rsKq1BTQ/movieposter_en.jpg"})
-        const logan = await createProduct({title:'Logan',description:'LOGAN WOLVERINE AGGRESSIVE FOR NO REASON SOMETIMES!,GETTING OLD', price:45.00,quantity:564,imageUrl:"https://upload.wikimedia.org/wikipedia/en/3/37/Logan_2017_poster.jpg"})
-        const tng = await createProduct({title:'The Nice Guys', description:'THEYREEEE NOICEEEE GUYSSSSSS!',price:23.00,quantity:23,imageUrl:"https://m.media-amazon.com/images/M/MV5BODNlNmU4MGItMzQwZi00NGQyLWEyZWItYjFkNmI0NWI4NjBhXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg"})
-        const ttb = await createProduct({title:'Train to busan',description:'ZOOMMMM---BIEEEEEE TRAINNNN !',price:90.00,quantity:890,imageUrl:"https://flxt.tmsimg.com/assets/p13070850_p_v8_ay.jpg"})
+        const scottPilgrim = await createProduct({title:'Scott Pilgrim',description:'Why is he dressed like a pirate?',price:20.00,quantity:300, imageUrl:"https://m.media-amazon.com/images/I/51FrvGUJD3L._AC_SY580_.jpg",categoryId:movies.id})
+        const akira = await createProduct({title:'Akira',description:'Two boys get psykinesis and then a baby explodes',price:19.99, quantity:1000,imageUrl:"https://ih1.redbubble.net/image.1024303529.4101/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",imageAlt:"A teenager walks towards a motorcycle and there's lots of red",categoryId:movies.id})
+        // const jackieBrown = await createProduct({title:'Jackie Brown', description:'A middle aged airline stewardess who supplements her income by smuggling arms for a kingpin',price:20.00, quantity:1234,imageUrl:'https://64.media.tumblr.com/b4d620407729df479ff3c5d4e6a9908c/tumblr_pdgfdrLrpB1s80h8lo1_1280.jpg',categoryId:movies.id})
+        const theOutsiders = await createProduct({title:'The Outsiders', description:'Tom Cruise in his first role', price:50.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/09/5f/60/095f6087b2690db76e2678b499b82fac.jpg',categoryId:movies.id});
+        const theSilenceOfLambs = await createProduct({ title:'The Silence of The Lambs',description:'disturbing Old Man eats people ',price:20, quantity:10,imageUrl:'https://i.pinimg.com/474x/a3/df/37/a3df374e001e0232d1522dc69145ffd3.jpg',categoryId:movies.id})
+        const alienET = await createProduct({ title:'E.T',description:' EEEEE.TTTTTT ',price:20.00,quantity:10, imageUrl:'https://i.pinimg.com/474x/f6/23/07/f623079bcc02b49ab9a839b239c81b9d.jpg',categoryId:movies.id })
+        const westSideStory = await createProduct({ title:'West Side Story', description:'A rivalry between ethnic backgrounds *Eyeroll* ', price:10.00,quantity:10, imageUrl:'https://i.pinimg.com/564x/83/b2/a0/83b2a0298f4a5c18278aefa9a440ae43.jpg',categoryId:movies.id})
+        const littleWomen = await createProduct({ title:'Little Women',description:'4 sisters',price:25.00,quantity:20, imageUrl:'https://i.pinimg.com/564x/a1/ae/90/a1ae90417b7e8a037ad20b16392ce17e.jpg',categoryId:movies.id})
+        const ladyOnFire = await createProduct({ title: 'Portrait of a Lady On Fire', description:' ouch',price:20.00,quantity:10, imageUrl: 'https://cdn.shopify.com/s/files/1/0275/8351/2681/products/PLF_AkikoPoster_2000x@2x.progressive.jpg?v=1654199751',categoryId:movies.id})
+        const blackSwan =await createProduct({title:'Black Swan',description:'A confusing movie dont watch when a toddler', price:20.00,quantity:10,imageUrl:'https://i.pinimg.com/564x/ce/0c/ff/ce0cff6131d1c7946aa514f7b6748fa2.jpg',imageAlt:"an image of the poster for black swan" ,categoryId:movies.id})
+        const hereditary =await createProduct({ title:'Hereditary',description:'A WTF kind of movie', price:15.00, quantity:10, imageUrl:'https://i.pinimg.com/564x/89/a6/e0/89a6e080474623cf3bfce05163fac57b.jpg',categoryId:movies.id})
+        const midSommar =await createProduct({ title:'Midsommar',description:'Culty',price:20.00,quantity:15,imageUrl:'https://i.pinimg.com/564x/bb/ab/1c/bbab1ca03a8b81457c02133c4f0a365d.jpg',categoryId:movies.id})
+        const everythingEverywhere = await createProduct({ title: 'Everything Everywhere All At Once', description:'crazy', price:20.00, quantity:15, imageUrl:'https://i.pinimg.com/564x/43/4d/be/434dbe2df3ad3afeccb0011659e978bf.jpg',categoryId:movies.id})
+        const spiderMan = await createProduct({ title:'Spiderman Into The Spiderverse', description:' Miles Morales', price:20.00,quantity:15, imageUrl:'https://i.pinimg.com/564x/c4/b0/b3/c4b0b31635fb0c935271c979f2d3bcf7.jpg',categoryId:movies.id})
+        const wolfOfWalls=await createProduct({ title: 'Wolf Of Wallstreet',description:'self explanatory', price:20.00,quantity:10, imageUrl:'https://i5.walmartimages.com/asr/7eb0cdc8-47a7-406d-ac83-59db69071a17_1.7fc5796fe564d76ad9af069d6cce4a41.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',categoryId:movies.id})
+        const barbarian =await createProduct({ title:'Barbarian', description:'Airbnb nightmare', price:25.00, quantity:15, imageUrl:'https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2022/09/barbarian-art.jpg?ssl=1',categoryId:movies.id})
+        const bleachers =await createProduct({ title:' The Bleachers',description:'Band',price:20.00,quantity:20,imageUrl:'https://i.pinimg.com/564x/04/a0/9c/04a09c7b371408dfb0d617f7a97110cf.jpg',categoryId:music.id})
+        const arcticMonkeys=await createProduct({title:'Arctic Monkey',description:'Band', price:20.00,quantity:12, imageUrl:'https://i.pinimg.com/564x/22/61/59/226159347177904e4de8779f3c097b7b.jpg',categoryId:music.id})
+        const szaa=await createProduct({title:'sza', description:'Artist',price:25.00, quantity:10, imageUrl:'https://i.pinimg.com/474x/18/fd/2c/18fd2c38f5cf7d4e124a7c7792e99c41.jpg ',categoryId:music.id})
+        const theWeeknd =await createProduct({title:'The Weeknd', description:'sad- mf',price:25.00,quantity:23, imageUrl:'https://i.pinimg.com/564x/bf/62/bb/bf62bb91015676488c5adda1251d997d.jpg',categoryId:music.id})
+        const theBookThief = await createProduct({title:'The Book Theif',description:'Leisel,Germany ww2',price:3009,quantity:2013,imageUrl:"https://i.pinimg.com/564x/65/2f/9a/652f9a7c4e9eaa7a0817bf3acd3d3ee2.jpg",categoryId:movies.id})
+        const saveYourselves =await createProduct({title:'Save Yourselves',description:'SAVE YOURSLEF!',price:23.00,quantity:2001,imageUrl:"https://images.squarespace-cdn.com/content/v1/582b5029bebafb10ec217bdf/1615830666374-4U5SQRFJMU12E8F5HCQ4/SaveYourselves_rgb.jpg?format=1500w",categoryId:movies.id})
+        const tampopop = await createProduct({title:'Tampopo',description:'TAMPOPOPOPOOPOP',price:20.00,quantity:5,imageUrl:"https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Tampopo_-_Poster.jpg/220px-Tampopo_-_Poster.jpg",categoryId:movies.id})
+        const fmf = await createProduct({title:'Fantastic Mr.Fox',description:'A FOX?????',price:32.00,quantity:324, imageUrl:"https://www.tvguide.com/a/img/catalog/provider/1/2/1-4493722784.jpg",categoryId:movies.id})
+        const dtrt = await createProduct({title:'Do The Right Thing',description:'WHATS THE WRONG THING',price:23.00,quantitiy:90,imageUrl:"https://product-image.juniqe-production.juniqe.com/media/catalog/product/seo-cache/x800/133/25/133-25-101P/Do-The-Right-Thing-Bruno-Morphet-Poster.jpg",categoryId:movies.id})
+        const waves = await createProduct({title:'Waves',description:'BEACH BEACH ', price:25.00, quantity:454,imageUrl:"https://i.etsystatic.com/18242346/r/il/f89d0a/2130906157/il_1588xN.2130906157_qrxe.jpg",categoryId:movies.id})
+        const stby = await createProduct({title:'Sorry To Bother You',description:'BOTHER ME PLEASEEEE',price:23.00,quantity:234,imageUrl:"https://m.media-amazon.com/images/M/MV5BNjgwMmI4YzUtZGI2Mi00M2MwLWIyMmMtZWYzMWZmNzAyNmYwXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",categoryId:movies.id})
+        const dmfm = await createProduct ({title:'Dial M for Murder',description:'M.',price:45.00,quantitiy:243,imageUrl:"https://i.ytimg.com/vi/Jl9rsKq1BTQ/movieposter_en.jpg",categoryId:movies.id})
+        const logan = await createProduct({title:'Logan',description:'LOGAN WOLVERINE AGGRESSIVE FOR NO REASON SOMETIMES!,GETTING OLD', price:45.00,quantity:564,imageUrl:"https://upload.wikimedia.org/wikipedia/en/3/37/Logan_2017_poster.jpg",categoryId:movies.id})
+        const tng = await createProduct({title:'The Nice Guys', description:'THEYREEEE NOICEEEE GUYSSSSSS!',price:23.00,quantity:23,imageUrl:"https://m.media-amazon.com/images/M/MV5BODNlNmU4MGItMzQwZi00NGQyLWEyZWItYjFkNmI0NWI4NjBhXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg",categoryId:movies.id})
+        const ttb = await createProduct({title:'Train to busan',description:'ZOOMMMM---BIEEEEEE TRAINNNN !',price:90.00,quantity:890,imageUrl:"https://flxt.tmsimg.com/assets/p13070850_p_v8_ay.jpg",categoryId:movies.id})
         // const  tylertc = await createProduct({title:'Tyler the Creater Album',description:'Call Me if You Get Lost',price:89.00,quantity:23,imageUrl:"https://files.slack.com/files-pri/T024FPYBQ-F04D57901UP/image.png"})
         // const  tyler = createProduct({title:'Earfquake',description:'Dont Leave its My Fault',price:67.00, quantity:23,imageUrl:"https://files.slack.com/files-pri/T024FPYBQ-F04DKP72ENN/image.png"})
         // const theInternet= createProduct({title:'Ego Death',description:'Album Poster',price:85.00,quantity:34,imageUrl:'https://files.slack.com/files-pri/T024FPYBQ-F04DD5W3C6S/image.png'})
@@ -269,8 +283,8 @@ async function testDB(){
         // await addQuantityToCart(4,2,3);
         // await deleteCart(8);
         // await totalPricer(4);
-        await getActiveCartByUserId(18)
-        await purchaseCart(18,18)
+        // await getActiveCartByUserId(18)
+        // await purchaseCart(18,18)
 }
 
 async function rebuildDB(){
@@ -278,11 +292,13 @@ async function rebuildDB(){
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialCategories();
     await createInitialProducts();
     await createInitialAddress();
     await createInitialCart();
     await createInitialReviews();
     await createInitialCartDetails();
+   
     await testDB();
     client.end();
 }
