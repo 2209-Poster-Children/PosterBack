@@ -20,8 +20,8 @@ productsRouter.get('/',async (req,res,next)=>{
 productsRouter.post('/',requireUser, requireAdmin,async(req,res,next)=>{
     try{
         // console.log(req.body)
-        const {title,description,price,quantity,imageUrl} = req.body;
-        const newProduct = await createProduct({title, description, price, quantity, imageUrl});
+        const {title,description,price,quantity,imageUrl,imageAlt,categoryId} = req.body;
+        const newProduct = await createProduct({title, description, price, quantity, imageUrl,imageAlt,categoryId});
         res.send({message:"new product created", product:newProduct})
     }catch ( { name, message } ) {
         next({ name, message })
