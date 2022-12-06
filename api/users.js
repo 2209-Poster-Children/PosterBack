@@ -1,13 +1,12 @@
-const express=require('express')
-const {getAllUsers, createUser, getUser, getUserByUsername}=require ('../db/users')
-const {getActiveCartByUserId} = require('../db/cart');
-const { getAllAddressByUserId } = require('../db/address');
-const { getAllReviewsById } = require('../db/reviews');
-const {requireUser} = require('./utils');
+const express = require('express');
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
-const { getAllCartsUserId } = require('../db/cartDetails');
-const {JWT_SECRET} =process.env;
+const {JWT_SECRET} = process.env;
+
+const {getAllUsers, createUser, getUser, getUserByUsername}=require ('../db/users');
+const { getAllReviewsById } = require('../db/reviews');
+const {requireUser} = require('./utils');
+
 
 // delete this b4 exporting the client 
 // GET /api/users/
@@ -105,10 +104,9 @@ usersRouter.get('/me',requireUser, async(req, res, next) => {
   try {
       // console.log(req.user)
       const user = await getUserByUsername(req.user.username);
-      const addresses = await getAllAddressByUserId(user.id);
-      const allCarts = await getAllCartsUserId(user.id);
+
       const reviews = await getAllReviewsById(user.id);
-      res.send({ user, addresses, allCarts, reviews });
+      res.send({ user, reviews });
 
     } catch ( { name, message } ) {
       next({ name, message })
