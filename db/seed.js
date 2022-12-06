@@ -1,13 +1,14 @@
-const{client} = require('./index');
-const{createUser, getAllUsers, createAdminUser} = require('./users');
-const{createProduct, getProductById, 
-    getAllProducts, getProductByTitle} = require('./products');
-const { createAddress } = require('./address');
-const { createCart, getCartsByUserId, 
-    getActiveCartByUserId, deleteCart,totalPricer } = require('./cart');
-const{addItemToCartDetails,getCartDetailsByCart,
-     addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
-const { createReview } = require('./reviews');
+const {client} = require('./index');
+const {createUser, getAllUsers, createAdminUser} = require('./users');
+const {createProduct, getProductById, getAllProducts,
+       getProductByTitle} = require('./products');
+const {createAddress} = require('./address');
+const {createCart, getCartsByUserId, 
+       getActiveCartByUserId, deleteCart,totalPricer,
+       purchaseCart } = require('./cart');
+const {addItemToCartDetails,getCartDetailsByCart,
+       addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
+const {createReview} = require('./reviews');
 
 
 async function createTables(){
@@ -269,6 +270,7 @@ async function testDB(){
         // await deleteCart(8);
         // await totalPricer(4);
         await getActiveCartByUserId(18)
+        await purchaseCart(18,18)
 }
 
 async function rebuildDB(){
