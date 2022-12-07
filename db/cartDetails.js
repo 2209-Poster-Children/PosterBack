@@ -65,14 +65,16 @@ async function getAllCartsUserId(userId){
 
 async function removeItemFromCartDetails(productId,cartId){
     try{ //this should remove just 1 item from cart details 
-        const itemRemove = await client.query(`
+        console.log(productId, " product ", cartId, " cart")
+        const {rows:[deleted]} = await client.query(`
             DELETE FROM "cartDetails" WHERE
-            "productId"=$1 AND "cartId" = $2`
+            "productId"=$1 AND "cartId" = $2
+            RETURNING *;`
             ,[productId,cartId])
         console.log("cartItemDeleted #",productId)
         //set totalPrice on cart.
         const newPrice= await totalPricer(cartId);
-        return itemRemove
+        return deleted
     }catch(error){
         console.log(error);
     }

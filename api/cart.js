@@ -1,8 +1,9 @@
 const express = require('express');
-const { getActiveCartByUserId, purchaseCart} = require('../db/cart');
+const { getActiveCartByUserId, purchaseCart, getActiveCartId} = require('../db/cart');
 const cartRouter = express.Router();
 const {requireUser} = require('./utils');
-const {getAllCartsUserId, addItemToCartDetails, addQuantityToCart, removeItemFromCartDetails} = require('../db/cartDetails');
+const {getAllCartsUserId, addItemToCartDetails, addQuantityToCart,
+       removeItemFromCartDetails } = require('../db/cartDetails');
 
 // GET /api/cart
 cartRouter.get('/',requireUser, async(req,res,next)=>{
@@ -71,7 +72,8 @@ cartRouter.patch('/purchase',requireUser,async(req,res,next)=>{
 //DELETE /api/cart/:productId
 cartRouter.delete('/:productId',requireUser,async(req,res,next)=>{
     try{
-        const {id} = await getActiveCartByUserId(req.user.id)
+        const {id} = await getActiveCartId(req.user.id)
+        console.log("api/cartid ", id)
         //function to check if the user's id matches the cart id
         const {productId} = req.params;
         const deleteItem = await removeItemFromCartDetails(productId,id);
