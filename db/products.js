@@ -60,12 +60,13 @@ async function getAllProducts(page, count){
     try{
         const offset = count*(page-1);
         const{rows} = await client.query(`
-            SELECT categories.name AS "categoryName", products.* FROM products
+            SELECT categories.name AS "categoryName", products.*,count(*) OVER ()  FROM products
             LEFT JOIN categories ON categories.id = products."categoryId"
             ORDER BY products.id DESC
             LIMIT $1 OFFSET $2;
             `, [count, offset]);
-        
+
+
         console.log(rows);
         return rows; 
     }catch(error){
