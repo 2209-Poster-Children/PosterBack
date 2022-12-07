@@ -312,16 +312,16 @@ async function testDB(){
 async function rebuildDB(){
     client.connect();
     await dropTables();
-    await createTables();
-    await createInitialUsers();
-    await createInitialAddress();
-    await createInitialCategories();
-    await createInitialProducts();
-    await createInitialCart();
-    await createInitialReviews();
-    await createInitialCartDetails();
-    await createInitialCreditCards();
-    await testDB();
+    // await createTables();
+    // await createInitialUsers();
+    // await createInitialAddress();
+    // await createInitialCategories();
+    // await createInitialProducts();
+    // await createInitialCart();
+    // await createInitialReviews();
+    // await createInitialCartDetails();
+    // await createInitialCreditCards();
+    // await testDB();
     client.end();
 }
 
