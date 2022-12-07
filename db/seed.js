@@ -68,17 +68,17 @@ async function createTables(){
             title VARCHAR(255)UNIQUE NOT NULL,
             description TEXT NOT NULL
         );
-        CREATE TABLE "creditCard"(
-            id SERIAL PRIMARY KEY,
-            "creditNumber" VARCHAR(255),
-            "CVV" VARCHAR(255),
-            expiration VARCHAR(255),
-            name VARCHAR(255),
-            zipcode INTEGER,
-            active BOOLEAN DEFAULT true,
-            "userId" INTEGER REFERENCES users(id)
-        );
         `)
+        // CREATE TABLE "creditCard"(
+        //     id SERIAL PRIMARY KEY,
+        //     "creditNumber" VARCHAR(255),
+        //     "CVV" VARCHAR(255),
+        //     expiration VARCHAR(255),
+        //     name VARCHAR(255),
+        //     zipcode INTEGER,
+        //     active BOOLEAN DEFAULT true,
+        //     "userId" INTEGER REFERENCES users(id)
+        // );
 
         console.log("...┏━┓┏━┓┏━┓ ︵ /(^.^/) tables successfully created!")
     }catch(error){
@@ -320,7 +320,7 @@ async function rebuildDB(){
     await createInitialCart();
     await createInitialReviews();
     await createInitialCartDetails();
-    await createInitialCreditCards();
+    // await createInitialCreditCards();
     await testDB();
     client.end();
 }
