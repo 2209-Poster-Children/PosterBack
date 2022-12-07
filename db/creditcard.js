@@ -5,9 +5,11 @@ const bcrypt = require('bcrypt');
 async function generateHashedValue(valueToHash){
     try{
 
-        const saltValue = await bcrypt.genSalt(14);
-        valueToHash = valueToHash.toString();
-        const hashedValue = await bcrypt.hash(valueToHash,saltValue)
+        const saltValue = await bcrypt.genSalt(10);
+        const valueToHash2 = valueToHash.toString();
+        console.log(valueToHash, "   ", valueToHash2);
+        const hashedValue = await bcrypt.hash(valueToHash2,saltValue)
+        return hashedValue;
     }catch(error){
         console.log(error)
     }
