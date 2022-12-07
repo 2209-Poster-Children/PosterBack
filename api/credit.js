@@ -3,9 +3,11 @@ const { addCreditCard } = require('../db/creditcard');
 const creditRouter = express.Router();
 const {requireUser} = require('./utils');
 
-creditRouter.get('/',requireUser, async(req,res,next)=>{
+// creditRouter.get('/',requireUser, async(req,res,next)=>{
     
-})
+// })
+
+
 creditRouter.post('/',requireUser,async(req,res,next)=>{
     try{
         const userId = req.user.id;
@@ -14,11 +16,10 @@ creditRouter.post('/',requireUser,async(req,res,next)=>{
 
         res.send(newCreditCard);
 
-    }catch({name,message}){
-        next({name,message})
+    }catch(error){
+        console.log(error);
+        next();
     }
 })
-
-
 
 module.exports = creditRouter;
