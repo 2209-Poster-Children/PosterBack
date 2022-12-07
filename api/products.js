@@ -8,7 +8,10 @@ const {requireAdmin} = require('./utilsadmin')
 // GET /api/products
 productsRouter.get('/',async (req,res,next)=>{
     try{
-        const allProducts = await getAllProducts()
+        const {page, count} = req.query;
+        console.log(page, count)
+        const allProducts = await getAllProducts(page, count);
+        console.log(allProducts)
         res.send(allProducts);
         
     }catch ( { name, message } ) {
