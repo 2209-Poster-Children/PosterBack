@@ -1,13 +1,9 @@
 const express = require('express');
-const { getActiveCartByUserId, getCartsByUserId } = require('../db/cart');
+const { getActiveCartByUserId, purchaseCart} = require('../db/cart');
 const cartRouter = express.Router();
 const {requireUser} = require('./utils');
-const {getCartDetailsByCart, addItemToCartDetails, addQuantityToCart, removeItemFromCartDetails} = require('../db/cartDetails');
+const {getAllCartsUserId, addItemToCartDetails, addQuantityToCart, removeItemFromCartDetails} = require('../db/cartDetails');
 
-
-// I need to write prohibitive code that only allows users of carts to act upon their own carts.. 
-// also guest cart permissions, thinking about that one as well, changing a guest cart to a user cart when they register.
-// Thinking of a way to do that
 // GET /api/cart
 cartRouter.get('/',requireUser, async(req,res,next)=>{
     try{
@@ -24,8 +20,8 @@ cartRouter.get('/',requireUser, async(req,res,next)=>{
 // GET /api/cart/allcart
 cartRouter.get('/allcart/',requireUser, async(req,res,next)=>{
     try{
-        const {id} = await getActiveCartByUserId(req.user.id);
-        const carts = await getCartsByUserId(id)
+        const id = req.user.id;
+        const carts = await getAllCartsUserId(id);
 
         res.send(carts);
     }catch(error){
@@ -46,7 +42,6 @@ cartRouter.post('/',requireUser, async(req,res,next)=>{
     }
 })
 
-
 //PATCH /api/cart    change quantity of item
 cartRouter.patch('/',requireUser, async(req,res,next)=>{
     try{
@@ -58,6 +53,18 @@ cartRouter.patch('/',requireUser, async(req,res,next)=>{
         res.send(cartQuantity)
     }catch({name,message}){
         next({name:"failed to change quantity",message:"quantity not changed....?"})
+    }
+})
+
+//PATCH /api/cart/purchase (sets cart to false, assigns bought at value)
+cartRouter.patch('/purchase',requireUser,async(req,res,next)=>{
+    try{
+        const {cartId}= await getActiveCartByUserId(req.user.id)
+        const purchase = await purchaseCart(cartId,req.user.id);
+        console.log("Purchase made, enjoy your posters!")
+        res.send( {name:"Purchase successful.",message:"Enjoy your posters! Thank you for shopping with Poster-Children!",purchase:purchase})
+    }catch(error){
+        next({name:"Failure to purchase",message:"An error occurred while making your purchase, please contact us or try again."})
     }
 })
 

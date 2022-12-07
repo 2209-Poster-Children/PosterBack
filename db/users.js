@@ -89,7 +89,7 @@ async function getUserByUsername(
     // console.log("getting user...")
     try{
         const { rows: [ user ] } = await client.query(`
-        SELECT username, id FROM users
+        SELECT username, id, "isAdmin" FROM users
         WHERE username = $1;
         `,[username]);
         // console.log("user " , user)

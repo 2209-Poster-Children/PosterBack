@@ -8,7 +8,10 @@ const {requireAdmin} = require('./utilsadmin')
 // GET /api/products
 productsRouter.get('/',async (req,res,next)=>{
     try{
-        const allProducts = await getAllProducts()
+        const {page, count} = req.query;
+        console.log(page, count)
+        const allProducts = await getAllProducts(page, count);
+        console.log(allProducts)
         res.send(allProducts);
         
     }catch ( { name, message } ) {
@@ -20,8 +23,8 @@ productsRouter.get('/',async (req,res,next)=>{
 productsRouter.post('/',requireUser, requireAdmin,async(req,res,next)=>{
     try{
         // console.log(req.body)
-        const {title,description,price,quantity,imageUrl} = req.body;
-        const newProduct = await createProduct({title, description, price, quantity, imageUrl});
+        const {title,description,price,quantity,imageUrl,imageAlt,categoryId} = req.body;
+        const newProduct = await createProduct({title, description, price, quantity, imageUrl,imageAlt,categoryId});
         res.send({message:"new product created", product:newProduct})
     }catch ( { name, message } ) {
         next({ name, message })
