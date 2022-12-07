@@ -90,14 +90,14 @@ async function dropTables(){
     console.log("(┛◉Д◉)┛彡┻━┻ dropping all tables...")
     try{
         await client.query(`
-        DROP TABLE IF EXISTS "cartDetails";
-        DROP TABLE IF EXISTS reviews;
-        DROP TABLE IF EXISTS cart;
-        DROP TABLE IF EXISTS products;
-        DROP TABLE IF EXISTS "creditCard";
-        DROP TABLE IF EXISTS categories;
-        DROP TABLE IF EXISTS address;
-        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS "cartDetails" CASCADE;
+        DROP TABLE IF EXISTS reviews CASCADE;
+        DROP TABLE IF EXISTS cart CASCADE;
+        DROP TABLE IF EXISTS products CASCADE;
+        DROP TABLE IF EXISTS "creditCard" CASCADE;
+        DROP TABLE IF EXISTS categories CASCADE;
+        DROP TABLE IF EXISTS address CASCADE;
+        DROP TABLE IF EXISTS users CASCADE;
         `)
         console.log("...┻━┻︵ \(°□°)/ ︵ ┻━┻ all tables dropped!")
     }catch(error){
