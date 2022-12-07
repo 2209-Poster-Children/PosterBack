@@ -10,11 +10,12 @@ const {addItemToCartDetails,getCartDetailsByCart,
        addQuantityToCart, removeItemFromCartDetails}=require ('./cartDetails')
 const {createReview} = require('./reviews');
 const { createCategory } = require('./categories');
+const { addCreditCard } = require('./creditcard');
 
 
 async function createTables(){
     console.log("┬─┬ノ( º _ ºノ) creating lots of tables...");
-    //notes on products genre(catagories) and img link??
+    //notes on products genre(categories) and img link??
     try{
         await client.query(`
         CREATE TABLE users(
@@ -67,6 +68,16 @@ async function createTables(){
             title VARCHAR(255)UNIQUE NOT NULL,
             description TEXT NOT NULL
         );
+        CREATE TABLE "creditCard"(
+            id SERIAL PRIMARY KEY,
+            "creditNumber" VARCHAR(255),
+            "CVV" VARCHAR(255),
+            expiration VARCHAR(255),
+            name VARCHAR(255),
+            zipcode INTEGER,
+            active BOOLEAN DEFAULT true,
+            "userId" INTEGER REFERENCES users(id)
+        );
         `)
 
         console.log("...┏━┓┏━┓┏━┓ ︵ /(^.^/) tables successfully created!")
@@ -83,6 +94,7 @@ async function dropTables(){
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS "creditCard";
         DROP TABLE IF EXISTS categories;
         DROP TABLE IF EXISTS address;
         DROP TABLE IF EXISTS users;
@@ -100,7 +112,7 @@ async function createInitialCategories(){
         movies = await createCategory("movies");
         music = await createCategory("music");
         videogames = await createCategory("videogames");
-        console.log("catagory stuff " , movies,music,videogames);
+        console.log("category stuff " , movies,music,videogames);
     }catch(error){
         console.log(error)
     }
@@ -269,13 +281,23 @@ async function createInitialReviews(){
     }
 }
 
+async function createInitialCreditCards(){
+    console.log("creating credit cards...")
+        try{
+            const shakiraVault = await addCreditCard({creditNumber:3423234223422342, CVV:333, expiration:1194, name:"Shakira's Name", zipcode:90555, userId:1});
+            console.log("success creating credit cards!")
+        }catch(error){
+            console.log(error);
+        }
+}
+
 async function testDB(){
 
         console.log("testing the database")
         // await getAllUsers();
         // await getProductById(1);
         // await getAllProducts();
-        // await getProductByTitle('Scott Pilgrim');
+        // await getProductByTitle('Scott Pilgrim'); 
         // await getCartsByUserId(4);
         // await getActiveCartByUserId(4);
         // await getCartDetailsByCart(4);
@@ -290,16 +312,16 @@ async function testDB(){
 async function rebuildDB(){
     client.connect();
     await dropTables();
-    await createTables();
-    await createInitialUsers();
-    await createInitialCategories();
-    await createInitialProducts();
-    await createInitialAddress();
-    await createInitialCart();
-    await createInitialReviews();
-    await createInitialCartDetails();
-   
-    await testDB();
+    // await createTables();
+    // await createInitialUsers();
+    // await createInitialAddress();
+    // await createInitialCategories();
+    // await createInitialProducts();
+    // await createInitialCart();
+    // await createInitialReviews();
+    // await createInitialCartDetails();
+    // await createInitialCreditCards();
+    // await testDB();
     client.end();
 }
 
