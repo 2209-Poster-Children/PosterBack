@@ -55,11 +55,22 @@ productsRouter.get('/title/:title',async(req,res,next)=>{
 })
 
 // PATCH products/title (requires user, admin), id, fields for the body
-productsRouter.patch('/',requireUser,requireAdmin,async (req,res,next)=>{
-    try{
-        const {id,fields}=req.body;
-        const updatedProduct= await updateProduct(id,fields)
-        res.send (updatedProduct)
+productsRouter.patch('/:productId',requireUser,requireAdmin,async (req,res,next)=>{
+    const { productId } = req.params;
+    const { title, description, price, quantity, imageUrl, imageAlt, categoryId } = req.body;
+    const updateFields = {};
+    
+    if (title) updateFields.title = title;
+    if (description) updateFields.description = description;
+    if (price) updateFields.price = price;
+    if (quantity) updateFields.quantity = quantity;
+    if (imageUrl) updateFields.imageUrl = imageUrl;
+    if (imageAlt) updateFields.imageAlt = imageAlt;
+    if (categoryId) updateFields.categoryId = categoryId;
+    
+    try {
+        const updatedProduct = await updateProduct(productId, updateFields);
+        res.send(updatedProduct);
         
     }catch ( { name, message } ) {
         next({ name, message })

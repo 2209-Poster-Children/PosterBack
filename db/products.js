@@ -24,19 +24,22 @@ async function createProduct({
 }
 
 //we're making a fields and inserting into the request and the data for each update added.
-async function updateProduct(
-   id, fields={}
-){// talk with teachers to make this one more secure.
-    try{
-        console.log(fields)
-        const setString= Object.keys(fields).map((key,index)=> `
+async function updateProduct(productId, fields={}) {// talk with teachers to make this one more secure.
+    const setString = Object.keys(fields).map((key,index)=> `
         "${key}"=$${index+1}`).join(`, `)
-        const {rows:[products]}= await client.query(`
-            UPDATE products SET ${setString}
-            WHERE id = $1
-            RETURNING *;`,Object.values(fields))
-        return products
-    }catch(error){
+    
+    try {
+        if (setString.length > 0) {
+
+        }
+        const { rows: [ product ] }= await client.query(`
+            UPDATE products SET ${ setString }
+            WHERE id = ${ productId }
+            RETURNING *;
+        `, Object.values(fields));
+
+        return product;
+    } catch (error) {
         console.log(error)
     }
 }
