@@ -180,22 +180,22 @@ async function createInitialProducts(){
         const tng = await createProduct({title:'The Nice Guys', description:'THEYREEEE NOICEEEE GUYSSSSSS!',price:23.00,quantity:23,imageUrl:"https://m.media-amazon.com/images/M/MV5BODNlNmU4MGItMzQwZi00NGQyLWEyZWItYjFkNmI0NWI4NjBhXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg",categoryId:movies.id})
         const ttb = await createProduct({title:'Train to busan',description:'ZOOMMMM---BIEEEEEE TRAINNNN !',price:90.00,quantity:890,imageUrl:"https://flxt.tmsimg.com/assets/p13070850_p_v8_ay.jpg",categoryId:movies.id})
         // videogames
-        const ogMario = await createProduct({title:'Original Mario', description:' Mario/Luigi Bros',price:15.00,quantity:120, imageUrl:' fef7cd6c7ba01c077f2fab6eea12ab8f.jpg',categoryId:videogames.id})
-        const streetFighter = await createProduct({title:'Street Fighter', description:'Fight fight', price:23.00, quantity:10,imageUrl:'30dd946bd6ef45b05460c1e1ec40659b.jpg', categoryId:videogames.id})
-        const gta = await createProduct({title:'Grand Theft Auto',description:'Steal cars, hit a granma in the throat', price: 16.00,quantity:12, imageUrl:'e47f05aa14791f07407588c38c374274.jpg', categoryId:videogames.id})
-        const halo = await createProduct({title:'Halo', description:'KILLY KILL KILL', price:12.00, quantity:12,imageUrl:'MV5BOWRjN2FjYjMtNGIyOS00ZDVjLWFkZjItYzMxMmFmOTllZGEzXkEyXkFqcGdeQXVyNzQzNDM3NTI@._V1_FMjpg_UX1000_.jpg', categoryId:videogames.id})
-        const qbert = await createProduct({title:'Q-bert',description:'tehehhe',price:212.00, quantity:13,imageUrl:' 4f1c9c391a4ae_236921b.jpg',categoryId:videogames.id})
-        const spaceInv = await createProduct({title:'Space Invaders', description:'INVADE INVADE', quantity:34.00,imageUrl:' a559cef86e786068ae156e7686d7c639.jpg'})
-        const tetris = await createProduct({title:'Tetris', description:'Stacks on Stacks',quantity:23.00,imageUrl:' 138742.jpg', categoryId:videogames.id})
-        const mineCraft= await createProduct({title:'Minecraft', description:'mining a craft', price:23.00, quantity:34, imageUrl:'81KsM2pcecL._AC_SL1500_.jpg',categoryId:videogames.id})
-        const eldenRing= await createProduct({title:'Elden Ring', description:'Mason', price:21.09, quantity:90,imageUrl:' 6110RSDn3PL._AC_SL1050_.jpg',categoryId:videogames.id})
-        const skullandbones= await createProduct({title:'Skull and Bones', description:'death',price:90.00, quantity:12,imageUrl:' skull-and-bones-button-fin-1657218024358.jpg', categoryId:videogames.id})
-        const pokemon = await createProduct({title:'Pokemon', description:'Catch them ALL',price:12.00, quantity:90, imageUrl:'il_fullxfull.1213514888_olad_grande.jpg',categoryId:videogames.id})
+        const ogMario = await createProduct({title:'Original Mario', description:' Mario/Luigi Bros',price:15.00,quantity:120, imageUrl:'https://i.ytimg.com/vi/cWOkHQXw0JQ/maxresdefault.jpg',categoryId:videogames.id})
+        const streetFighter = await createProduct({title:'Street Fighter', description:'Fight fight', price:23.00, quantity:10,imageUrl:'https://m.media-amazon.com/images/M/MV5BMGJmMjI5ZDMtMzYxZi00MTlkLTk1MDYtYzZkZjc4MmFhNTFhXkEyXkFqcGdeQXVyMTk5NDI0MA@@._V1_.jpg', categoryId:videogames.id})
+        const gta = await createProduct({title:'Grand Theft Auto',description:'Steal cars, hit a granma in the throat', price: 16.00,quantity:12, imageUrl:'https://m.media-amazon.com/images/M/MV5BMTAyYWYyOTMtNmUzNS00NzNjLTkyZTUtZjhlZjMzYzJmNzM5XkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_FMjpg_UX1000_.jpg', categoryId:videogames.id})
+        const halo = await createProduct({title:'Halo', description:'KILLY KILL KILL', price:12.00, quantity:12,imageUrl:'https://www.onmsft.com/wp-content/uploads/2022/03/halo-tv-poster-full.jpg', categoryId:videogames.id})
+        const qbert = await createProduct({title:'Q-bert',description:'tehehhe',price:212.00, quantity:13,imageUrl:'https://www.retrogamecases.com/wp-content/uploads/nes_qbert_poster.jpg',categoryId:videogames.id})
+        const spaceInv = await createProduct({title:'Space Invaders', description:'INVADE INVADE', quantity:34.00,imageUrl:'https://i.ebayimg.com/images/g/aEsAAOSwYmZXJKgV/s-l400.jpg',categoryId:videogames.id})
+        const tetris = await createProduct({title:'Tetris', description:'Stacks on Stacks',quantity:23.00,imageUrl:'https://www.retrogamecases.com/wp-content/uploads/nes_tetris2.jpg', categoryId:videogames.id})
+        const mineCraft= await createProduct({title:'Minecraft', description:'mining a craft', price:23.00, quantity:34, imageUrl:'https://ih1.redbubble.net/image.1781586546.6138/st,small,845x845-pad,1000x1000,f8f8f8.jpg',categoryId:videogames.id})
+        const eldenRing= await createProduct({title:'Elden Ring', description:'Mason', price:21.09, quantity:90,imageUrl:'https://m.media-amazon.com/images/I/6110RSDn3PL.jpg',categoryId:videogames.id})
+        const skullandbones= await createProduct({title:'Skull and Bones', description:'death',price:90.00, quantity:12,imageUrl:'https://www.gamespot.com/a/uploads/scale_medium/1197/11970954/3247299-skullbones.jpg', categoryId:videogames.id})
+        const pokemon = await createProduct({title:'Pokemon', description:'Catch them ALL',price:12.00, quantity:90, imageUrl:'https://t1.pixers.pics/img-1fb6f67c/posters-pokemon.jpg?H4sIAAAAAAAAA3WOXW7EIAyEr0MkEpsQ4oQb7NveICJAtmnzg4BtVz19iao-VpZlj6XxfPA8klk8WH9kH2Ffnds8LOtWVNLRp_XbM-RyVJUu140hYqXPTx9tPAOrheSlW953xFU7VPrLFOdu4gd7yzkkDZBkE9ZXeVeGTWD3BC0KAhxAjYOxfnY0CtNOoU7ZHM5EVxPW9FLYhOPB8arqj4UQOV0MOa47K1BnScvsPTwq-Cfxd4figvsNhADsgC453W9CYEfTsvSEbvGEM0nTyVH2UpIVXnnn3DxMaiYzG6GUtYOZmh81iHdRNgEAAA==',categoryId:videogames.id})
         const zelda = await createProduct({title:'The Legend of Zeda',description:'A legend', price:43.00,quantity:45, imageUrl:'https://cdn.shopify.com/s/files/1/0630/8509/products/pst1131_Zelda_Breath_of_the-_Wild_BOTW_Poster_large.jpg?v=1608456234',categoryId:videogames.id})
-        const rapture = await createProduct({title:'Rapture', description:'huh',price:56.00, quantity:34,imageUrl:'https://ih1.redbubble.net/image.1025786612.1376/poster,504x498,f8f8f8-pad,600x600,f8f8f8.jpg'})
+        const rapture = await createProduct({title:'Rapture', description:'huh',price:56.00, quantity:34,imageUrl:'https://ih1.redbubble.net/image.1025786612.1376/poster,504x498,f8f8f8-pad,600x600,f8f8f8.jpg',categoryId:videogames.id})
         const imposterS = await createProduct({title:'Imposter', description:'Impostersss',price:23.00, quantity:90, imageUrl:'https://imgc.allpostersimages.com/img/posters/among-us-impostor-premium-poster_u-L-F9PHF40.jpg',categoryId:videogames.id})
 
-// music
+        // music
         const  tylertc = await createProduct({title:'Tyler the Creater Album',description:'Call Me if You Get Lost',price:89.00,quantity:23,imageUrl:"https://ih1.redbubble.net/image.2502676628.6995/poster,840x830,f8f8f8-pad,1000x1000,f8f8f8.jpg", categoryId:music.id})
         const  tyler = await createProduct({title:'Earfquake',description:'Dont Leave its My Fault',price:67.00, quantity:23,imageUrl:"https://i.pinimg.com/originals/a1/5a/5d/a15a5d5e0e12202f78fbc811a6498c08.jpg",categoryId:music.id})
         const theInternet= await createProduct({title:'Ego Death',description:'Album Poster',price:85.00,quantity:34,imageUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjzT8XKAJI6AFn4O9--rcouJxHmbNfmnXRL7Btwc8ihQ5bfDCY1PGHQWMXDNxRPrOauhI&usqp=CAU', categoryId:music.id})
@@ -305,7 +305,7 @@ async function createInitialCreditCards(){
             console.log("success creating credit cards!")
         }catch(error){
             console.log(error);
-        }
+        }   
 }
 
 async function testDB(){
