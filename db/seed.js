@@ -195,7 +195,7 @@ async function createInitialProducts(){
         const rapture = await createProduct({title:'Rapture', description:'huh',price:56.00, quantity:34,imageUrl:'https://ih1.redbubble.net/image.1025786612.1376/poster,504x498,f8f8f8-pad,600x600,f8f8f8.jpg',categoryId:videogames.id})
         const imposterS = await createProduct({title:'Imposter', description:'Impostersss',price:23.00, quantity:90, imageUrl:'https://imgc.allpostersimages.com/img/posters/among-us-impostor-premium-poster_u-L-F9PHF40.jpg',categoryId:videogames.id})
 
-// music
+        // music
         const  tylertc = await createProduct({title:'Tyler the Creater Album',description:'Call Me if You Get Lost',price:89.00,quantity:23,imageUrl:"https://ih1.redbubble.net/image.2502676628.6995/poster,840x830,f8f8f8-pad,1000x1000,f8f8f8.jpg", categoryId:music.id})
         const  tyler = await createProduct({title:'Earfquake',description:'Dont Leave its My Fault',price:67.00, quantity:23,imageUrl:"https://i.pinimg.com/originals/a1/5a/5d/a15a5d5e0e12202f78fbc811a6498c08.jpg",categoryId:music.id})
         const theInternet= await createProduct({title:'Ego Death',description:'Album Poster',price:85.00,quantity:34,imageUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjzT8XKAJI6AFn4O9--rcouJxHmbNfmnXRL7Btwc8ihQ5bfDCY1PGHQWMXDNxRPrOauhI&usqp=CAU', categoryId:music.id})
@@ -305,7 +305,7 @@ async function createInitialCreditCards(){
             console.log("success creating credit cards!")
         }catch(error){
             console.log(error);
-        }
+        }   
 }
 
 async function testDB(){
