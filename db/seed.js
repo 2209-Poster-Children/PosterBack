@@ -182,7 +182,7 @@ async function createInitialProducts(){
         // videogames
         const ogMario = await createProduct({title:'Super Mario Bros 3', description:' Mario/Luigi Bros',price:15.00,quantity:120, imageUrl:'https://imgur.com/0NvmRea',categoryId:videogames.id})
         const streetFighter = await createProduct({title:'Street Fighter II', description:'Fight fight', price:23.00, quantity:10,imageUrl:'https://imgur.com/ubSXFZB', categoryId:videogames.id})
-        const gta = await createProduct({title:'Grand Theft Auto Five',description:'Steal cars, hit a granma in the throat', price: 16.00,quantity:12, imageUrl:'https://imgur.com/9HcySyZ', categoryId:videogames.id})
+        const gta = await createProduct({title:'Grand Theft Auto Five',description:'Steal cars, hit a grandma in the throat', price: 16.00,quantity:12, imageUrl:'https://imgur.com/9HcySyZ', categoryId:videogames.id})
         const halo = await createProduct({title:'Halo', description:'KILLY KILL KILL', price:12.00, quantity:12,imageUrl:'https://imgur.com/uPznFEa', categoryId:videogames.id})
         const qbert = await createProduct({title:'Q-bert',description:'tehehhe',price:212.00, quantity:13,imageUrl:'https://imgur.com/TZlpsRx',categoryId:videogames.id})
         const spaceInv = await createProduct({title:'Space Invaders', description:'INVADE INVADE', quantity:34.00,price:300,imageUrl:'https://imgur.com/N2V10NJ',categoryId:videogames.id})

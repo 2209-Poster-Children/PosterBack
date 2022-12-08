@@ -33,4 +33,31 @@ async function addCreditCard({
     }
 }
 
-module.exports={addCreditCard}
+async function getAllCreditCardsByUser(
+    userId
+){
+    try{
+    const{ rows }= await client.query(`
+    SELECT * FROM "creditCard" WHERE "userId" =$1;
+    `,userId)
+
+    return rows;
+    }catch(error){
+        console.log(error)
+    }
+}
+
+async function getActiveCreditCardByUser(userId){
+    try{
+        const {rows:[credit]}= await client.query(`
+        SELECT * FROM "creditCard" WHERE "userId" =$1
+        AND "isActive" = true;`
+        ,[userId])
+
+        return credit;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+module.exports={addCreditCard, getActiveCreditCardByUser, getAllCreditCardsByUser}
