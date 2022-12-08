@@ -18,20 +18,20 @@ async function createCart({
     }
 }
 
-//all carts, open and closed(maybe I should just make a closed instead of a dual one)
-// async function getCartsByUserId(userId){
-//   // console.log("getting carts by user id" , userId)
-//   try{
-//     const{rows} =await client.query(`
-//     SELECT * FROM cart
-//     WHERE "userId" =$1;`
-//     ,[userId]);
-//     // console.log(rows)
-//     return rows
-//   }catch(error){
-//     console.log(error)
-//   }
-// }
+// all carts, open and closed(maybe I should just make a closed instead of a dual one)
+async function getActiveCartId(userId){
+  // console.log("getting carts by user id" , userId)
+  try{
+    const{rows: [identification] } = await client.query(`
+     SELECT id FROM cart
+     WHERE "userId" =$1 AND "isActive" = true;`
+    ,[userId]);
+    // console.log(rows)
+    return identification
+  }catch(error){
+    console.log(error)
+  }
+}
 
 //users should only have 1 active cart, am going to write code that guaruntees that... currently this gets the carts active by user
 async function getActiveCartByUserId(userId){
@@ -160,7 +160,7 @@ async function purchaseCart(cartId,userId){
 module.exports={
     createCart,
     deleteCart,
-    // getCartsByUserId,
+    getActiveCartId,
     getActiveCartByUserId,
     obliterateAllCartDetails,
     totalPricer,

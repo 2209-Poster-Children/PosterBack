@@ -55,7 +55,7 @@ apiRouter.use('/address',addressRouter );
 const cartRouter = require('./cart');
 apiRouter.use('/cart',cartRouter);
 const creditRouter = require('./credit');
-creditRouter.use('/credit',creditRouter);
+apiRouter.use('/credit', creditRouter);
 
 // Error handling
 apiRouter.use((error, req, res, next) => {
