@@ -26,10 +26,6 @@ function requireUser(req,res, next){
     
     return paymentIntent.client_secret;
 };
-  
-  app.listen(4242, () => console.log("Node server listening on port 4242!"));
-
-
 
 module.exports ={
     requireUser,
