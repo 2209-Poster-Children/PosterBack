@@ -1,4 +1,4 @@
-const stripe = require("stripe")('pk_test_51MF3pUJXXCrR1XV9xc3wPIVqnj5k8WRMaWK6mpMAZa8d56IKNXLBznyaYBV6bA5Bmp3AOGyGSDLz3X1AFqfKSsAE00KMt9puEH');
+const stripe = require("stripe")('sk_test_51MF3pUJXXCrR1XV9yGmA9MfWy1idajVryHp15VLBXgLQ30g5fyi42Kmd2784wFEPxIQvm41aRf7vdhxtsstRXotL00zpL5cytk');
 
 function requireUser(req,res, next){
     console.log("This is req user",req.user)
